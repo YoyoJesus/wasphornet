@@ -1,0 +1,22 @@
+# ignore all .a files & any file or folder with a . in front of it
+.bash_history
+.bash_logout
+.bash_profile
+.bashrc
+.emacs
+.kshrc
+.viminfo
+.wget-hsts
+.zshrc
+.cache/
+.config/
+.dotnet/
+.local/
+.emacs.d/
+.mozilla/
+.ssh/
+.subversion/
+.vscode/
+.vscode-server/
+.xemacs/
+shared/
