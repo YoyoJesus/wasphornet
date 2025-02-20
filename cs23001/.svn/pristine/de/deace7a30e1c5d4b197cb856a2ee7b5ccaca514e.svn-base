@@ -1,0 +1,62 @@
+#include "../assembler/stack.hpp"
+#include "../string/string.hpp"
+#include <iostream>
+#include <fstream>
+
+void Prefix(std::istream& in, std::ostream& out) {
+    //set up needed temp pieces & stack
+    stack<String> s_stack;
+    String left, right, current_token, function;
+    char token[100];
+
+    //until we reach end of line
+    while (!in.eof()) {
+        //take in next piece of input
+        in >> token;
+        current_token = String(token);
+
+        //if we reach end doing this, breakout of loop
+        if (in.eof()) break;
+
+        //if in is a ;, print top of stack & jump to new line
+        if (current_token == ";") {
+            out << s_stack.top() << std::endl;
+            s_stack = stack<String>();
+        } 
+        //if we encounter a ), push operator & operands to the stack
+        else if (current_token == ")") {
+            right = s_stack.pop();
+            function = s_stack.pop();
+            left = s_stack.pop();
+
+            s_stack.push(function + left + right);
+        } 
+        //if we encounter anything else that isn't a (, push in item & a space to the stack
+        else if (current_token != "(")
+            s_stack.push(current_token + " ");
+        
+    }
+}
+
+int main() {
+    //buffer for filename
+    char input_filename[100];
+
+    //prompt user for file they want to be processed
+    std::cout << "Enter input file name: ";
+    std::cin >> input_filename;
+
+    //open said file
+    std::ifstream in(input_filename);
+
+    //if file can't be open, let user know & end execution
+    if (!in) {
+        std::cerr << "Specified output file could not be opened" << std::endl;
+        return 1; // Return an error code
+    }
+
+    Prefix(in, std::cout);
+
+    in.close();
+    return 0;
+}

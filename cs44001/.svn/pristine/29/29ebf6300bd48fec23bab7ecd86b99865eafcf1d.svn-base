@@ -1,0 +1,144 @@
+// Lab 3: Collection Template
+// Template class for a collection of elements of any type
+// Austin Sternberg
+// 2/2/2025
+
+#ifndef COLLECTION_HPP_
+#define COLLECTION_HPP_
+
+#include <iostream>
+
+template <typename T>
+class Collection;
+
+template <typename T>
+bool equal(const Collection<T>&, const Collection<T>&);
+
+template <typename T>
+class Collection {
+    public:
+        Collection() : size(0), capacity(0) { data = nullptr; }
+        Collection(Collection<T>&);
+        ~Collection() { delete[] data; }
+        void add(T);
+        void remove(T);
+        T last() { return data[size - 1]; }
+        void print();
+        bool isEmpty() { return size == 0; }
+        bool contains(T);
+        int getSize() { return size; }
+        Collection<T>& operator=(Collection<T>&);
+        T& operator[](int);
+
+        template <typename U>
+        friend bool equal(const Collection<U>&, const Collection<U>&);
+
+    private:
+        T* data;
+        int size;
+        int capacity;
+        void resize();
+};
+
+template <typename T>
+void Collection<T>::resize() {
+    if (capacity == 0) {
+        capacity = 1;
+        data = new T[capacity];
+    } else {
+        capacity *= 2;
+        T* temp = new T[capacity];
+        for (int i = 0; i < size; i++) {
+            temp[i] = data[i];
+        }
+        delete[] data;
+        data = temp;
+    }
+}
+
+template <typename T>
+Collection<T>::Collection(Collection<T>& rhs) {
+    size = rhs.size;
+    capacity = rhs.capacity;
+    data = new T[capacity];
+    for (int i = 0; i < size; i++) {
+        data[i] = rhs.data[i];
+    }
+}
+
+template <typename T>
+void Collection<T>::add(T element) {
+    if (size == capacity) {
+        resize();
+    }
+    data[size++] = element;
+}
+
+template<typename T>
+void Collection<T>::remove(T item) {
+    int newSize = size;
+    for (int i = 0; i < newSize; ) {
+        if (data[i] == item) {
+            for (int j = i; j < newSize - 1; j++) {
+                data[j] = data[j + 1];
+            }
+            newSize--;
+        } else {
+            i++;
+        }
+    }
+    size = newSize;
+}
+
+template <typename T> 
+void Collection<T>::print() {
+    for (int i = 0; i < size; i++) {
+        std::cout << data[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+template <typename T>
+bool Collection<T>::contains(T element) {
+    for (int i = 0; i < size; i++) {
+        if (data[i] == element) {
+            return true;
+        }
+    }
+    return false;
+}
+
+template <typename T>
+Collection<T>& Collection<T>::operator=(Collection<T>& rhs) {
+    if (this == &rhs) {
+        return *this;
+    }
+    size = rhs.size;
+    capacity = rhs.capacity;
+    delete[] data;
+    data = new T[capacity];
+    for (int i = 0; i < size; i++) {
+        data[i] = rhs.data[i];
+    }
+    return *this;
+}
+
+template <typename T>
+T& Collection<T>::operator[](int index) {
+    return data[index];
+}
+
+template <typename T>   
+bool equal(const Collection<T>& lhs, const Collection<T>& rhs) {
+    if (lhs.size != rhs.size) {
+        return false;
+    }
+    for (int i = 0; i < lhs.size; i++) {
+        if (lhs.data[i] != rhs.data[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+#endif // COLLECTION_HPP_

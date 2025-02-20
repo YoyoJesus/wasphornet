@@ -1,0 +1,17 @@
+Grades are out of 10 for the assignments and out of 100 for the projects
+
+Lab 1: 10
+Lab 2: 10
+Lab 3: 5 - No submission.
+Lab 4: 10
+Lab 5: 10
+Lab 6: 10
+
+Project 1: 
+M1: 100
+M2: 98 - Not enough unique test cases for +; You need to test large numbers that are at the size or larger than the array capacity.
+M3: 100
+Bonus: 100
+
+Project 2: 
+M1: 70 - Fails instructor's tests at testM1_concat;  Assertion result == 'abab' failed.

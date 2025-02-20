@@ -1,0 +1,291 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+p.exclude-center {
+    text-align: left; /* Or any other desired alignment */
+}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix {
+  display: inline-block;
+}
+
+* html .clearfix {
+  height: 1%;
+}
+.clearfix {
+  display: block;
+}
+
+body {
+  background: #012f10;
+  color: #ffffff;
+  margin:0 auto;
+  text-align:center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  line-height: 187.5%;
+  letter-spacing: 0.01em;
+}
+
+/*--------------------------------------------------------------
+	10. Social
+--------------------------------------------------------------*/
+.basr-social-share {
+  position:fixed;
+  top:3em;
+  left:0;
+  right:0;
+  width: 25%;
+  display: block;
+  text-align:center;
+  padding:0 auto;
+  margin:5em auto;
+}
+
+.social ul {
+  list-style: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.social ul li {
+  border: 5px solid #512e12;
+  border-radius: 50%;
+  float: left;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+@media only screen and (max-width: 480px) {
+  .social ul li {
+    border-width: 4px;
+    width: 45px;
+    height: 45px;
+  }
+}
+.social ul li:not(:last-child) {
+  margin-right: 10px;
+}
+.social ul li:before {
+  content: '';
+  border-radius: 50%;
+  -webkit-shadow: inset 0 0px 3px rgba(149, 90, 42, 0.28), 0px 0px 0px 2px rgba(149, 90, 42, 0.28);
+  -ms-box-shadow: inset 0 0px 3px rgba(149, 90, 42, 0.28), 0px 0px 0px 2px rgba(149, 90, 42, 0.28);
+  box-shadow: inset 0 0px 3px rgba(149, 90, 42, 0.28), 0px 0px 0px 2px rgba(149, 90, 42, 0.28);
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  opacity: 0.35;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+@media only screen and (max-width: 480px) {
+  .social ul li:before {
+    width: 43px;
+    height: 43px;
+  }
+}
+.social ul li:hover {
+  border-color: #a33629;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.social ul li:hover:before {
+  -webkit-shadow: inset 0 0px 3px rgba(163, 54, 41, 0.28), 0px 0px 0px 2px rgba(163, 54, 41, 0.28);
+  -ms-box-shadow: inset 0 0px 3px rgba(163, 54, 41, 0.28), 0px 0px 0px 2px rgba(163, 54, 41, 0.28);
+  box-shadow: inset 0 0px 3px rgba(163, 54, 41, 0.28), 0px 0px 0px 2px rgba(163, 54, 41, 0.28);
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.social ul li:hover i {
+  color: #d66557;
+  -webkit-stroke-width: 5.3px;
+  -webkit-stroke-color: #a33629;
+  -webkit-fill-color: #a33629;
+  text-shadow: 1px 0px 20px #a33629;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.social ul li a {
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+}
+@media only screen and (max-width: 480px) {
+  .social ul li a {
+    background-size: cover;
+    top: -5px;
+    left: -5px;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+  }
+}
+.social ul li a:before {
+  content: '';
+  background-image: url('https://img.picload.org/image/dcocwcga/border-social-hover.png');
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 46px;
+  height: 45px;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+@media only screen and (max-width: 480px) {
+  .social ul li a:before {
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+  }
+}
+.social ul li a:after {
+  content: '';
+  background-image: url('https://img.picload.org/image/dcocwcgd/border-social.png');
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 46px;
+  height: 45px;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+@media only screen and (max-width: 480px) {
+  .social ul li a:after {
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+  }
+}
+.social ul li a:hover:before {
+  opacity: 1;
+  -webkit-transform: translate(-50%, -50%) rotate(360deg);
+  -ms-transform: translate(-50%, -50%) rotate(360deg);
+  transform: translate(-50%, -50%) rotate(360deg);
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.social ul li a:hover:after {
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%) rotate(360deg);
+  -ms-transform: translate(-50%, -50%) rotate(360deg);
+  transform: translate(-50%, -50%) rotate(360deg);
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.social ul li a i {
+  color: #ffead3;
+  font-size: 23px;
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-stroke-width: 5.3px;
+  -webkit-stroke-color: #ffead3;
+  -webkit-fill-color: #ffead3;
+  text-shadow: 1px 0px 20px #ffead3;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+@media only screen and (max-width: 480px) {
+  .social ul li a i {
+    font-size: 16px;
+  }
+}
+.social ul li a i.fa-envelope {
+  font-size: 14px;
+  top: 48%;
+}
+.k2t-footer.dark-style .social li a,
+.dark-style .social li a {
+  color: #fff;
+}
+.k2t-footer.dark-style .social li a:hover,
+.dark-style .social li a:hover {
+  color: #fff;
+}
+.basr-social-share.social li:hover a {
+  color: #898989;
+}
+.basr-social-share.social li a {
+  border-width: 0;
+  color: #cccccc;
+}
+.basr-social-share.social li a:hover {
+  color: #898989;
+}
+.basr-social-share.social li a span {
+  display: none;
+}
+
+a{
+  color: rgb(110, 110, 110);
+}
+
+.topnav{
+  background-color: #ffffff;
+}

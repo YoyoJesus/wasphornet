@@ -1,0 +1,12 @@
+#ifndef STACK_UTILITIES
+#define STACK_UTILITIES
+
+#include<iostream>
+#include <fstream>
+#include "../string/string.hpp"
+#include "stack.hpp"
+
+void Postfix(std::istream&, std::ostream&);
+void Prefix(std::istream&, std::ostream&);
+
+#endif

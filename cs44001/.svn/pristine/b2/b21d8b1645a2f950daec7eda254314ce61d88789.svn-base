@@ -1,0 +1,145 @@
+#include "WordList.hpp"
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <regex>
+
+// WordOccurrence Implementation
+bool WordOccurrence::matchWord(const std::string &word) {
+    return word_ == word;
+}
+
+void WordOccurrence::increment() {
+    num_++;
+}
+
+std::string WordOccurrence::getWord() const {
+    return word_;
+}
+
+int WordOccurrence::getNum() const {
+    return num_;
+}
+
+bool equal(const WordOccurrence &lhs, const WordOccurrence &rhs) {
+    return lhs.word_ == rhs.word_ && lhs.num_ == rhs.num_;
+}
+
+bool operator<(const WordOccurrence &lhs, const WordOccurrence &rhs) {
+    return lhs.word_ < rhs.word_;
+}
+
+// Constructor: Properly allocate memory
+WordList::WordList(WordOccurrence *wordArray, int size) {
+    size_ = size;
+    wordArray_ = (size_ > 0) ? new WordOccurrence[size_] : nullptr;
+
+    for (int i = 0; i < size_; i++) {
+        wordArray_[i] = wordArray[i];
+    }
+}
+
+// Copy Constructor: Deep Copy
+WordList::WordList(const WordList &other) {
+    size_ = other.size_;
+    wordArray_ = new WordOccurrence[size_];
+
+    for (int i = 0; i < size_; i++) {
+        wordArray_[i] = other.wordArray_[i];
+    }
+}
+
+// Destructor: Free Memory
+WordList::~WordList() {
+    delete[] wordArray_;
+}
+
+// Swap Function: Used in Assignment Operator
+void swap(WordList &lhs, WordList &rhs) {
+    std::swap(lhs.size_, rhs.size_);
+    std::swap(lhs.wordArray_, rhs.wordArray_);
+}
+
+// Assignment Operator: Copy-and-Swap Idiom
+WordList WordList::operator=(WordList other) {
+    swap(*this, other);
+    return *this;
+}
+
+// Comparison
+bool equal(const WordList &lhs, const WordList &rhs) {
+    if (lhs.size_ != rhs.size_) return false;
+    for (int i = 0; i < lhs.size_; i++) {
+        if (!equal(lhs.wordArray_[i], rhs.wordArray_[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Function to clean a word by removing non-alphanumeric characters
+std::string cleanWord(const std::string& word) {
+    std::string cleaned;
+    for (char c : word) {
+        if (std::isalnum(c)) {
+            cleaned += c;  // Only add alphanumeric characters to the cleaned word
+        }
+    }
+    return cleaned;
+}
+
+// Function to split a string based on non-alphanumeric characters
+std::vector<std::string> splitString(const std::string& str) {
+    std::vector<std::string> words;
+    std::regex word_regex("[A-Za-z0-9]+"); // Match alphanumeric words
+    auto words_begin = std::sregex_iterator(str.begin(), str.end(), word_regex);
+    auto words_end = std::sregex_iterator();
+
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        words.push_back(i->str());
+    }
+
+    return words;
+}
+
+void WordList::addWord(const std::string &word) {
+    // Split the word by non-alphanumeric characters and clean each part
+    std::vector<std::string> splitWords = splitString(word);
+
+    // Process each word fragment after splitting and cleaning
+    for (const std::string& splitWord : splitWords) {
+        std::string cleanedWord = cleanWord(splitWord);
+        if (cleanedWord.empty()) return; // Skip if the word is empty after cleaning
+
+        // Check if the word already exists in the list
+        for (int i = 0; i < size_; i++) {
+            if (wordArray_[i].matchWord(cleanedWord)) {
+                wordArray_[i].increment();
+                return;
+            }
+        }
+
+        // If the word doesn't exist, add it to the array
+        WordOccurrence *newArray = new WordOccurrence[size_ + 1];
+        for (int i = 0; i < size_; i++) {
+            newArray[i] = wordArray_[i];
+        }
+
+        if (size_ > 0) {
+            delete[] wordArray_;
+        }
+
+        size_++;
+        newArray[size_ - 1] = WordOccurrence(cleanedWord, 1);
+        wordArray_ = newArray;
+    }
+}
+
+// Print method (sorts before printing)
+void WordList::print() {
+    std::sort(wordArray_, wordArray_ + size_);
+    for (int i = 0; i < size_; i++) {
+        std::cout << wordArray_[i].getWord() << " " << wordArray_[i].getNum() << std::endl;
+    }
+}

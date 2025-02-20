@@ -1,0 +1,44 @@
+#include "WordList.hpp"
+
+#include <iostream>
+#include <string>
+#include <fstream>
+
+std::ifstream openFile(const char* filename);
+
+int main(int argc, char* argv[]) {
+    // Check if the program is invoked with the correct arguments
+    if (argc != 2) {
+        std::cout << "Error! Please invoke program with 1 argument." << std::endl;
+        return 1;
+    }
+
+    // Open the file using the openFile function
+    std::ifstream file = openFile(argv[1]);
+
+    // Create a WordList object
+    WordList wordList;
+
+    // Read the file and add words to the WordList object
+    std::string word;
+    while (file >> word) {
+        wordList.addWord(word);
+    }
+
+    // Print the WordList object
+    wordList.print();
+
+    return 0;
+}
+
+// Function to open a file and check for errors
+std::ifstream openFile(const char* filename) {
+    std::ifstream file(filename);
+
+    if (!file) {
+        std::cout << "Error! Could not open file: " << filename << std::endl;
+        exit(1); // Exit if the file cannot be opened
+    }
+
+    return file;
+}

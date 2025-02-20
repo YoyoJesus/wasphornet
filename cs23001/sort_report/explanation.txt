@@ -1,0 +1,3 @@
+The bubble_sort function takes the most amount of time, as it uses two nested for-loops to sort data, with a time complexity of n^2.
+In this case we feed it 30000 data points, so its time complex, as it would need nearly 900000000 iterations for fully sort this data, as
+well as calling the vector indexing operator. This requires a lot of computation, and that adds up in time.

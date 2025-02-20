@@ -1,0 +1,339 @@
+/**
+   * Austin  Sternberg
+   * string.cpp
+   * cs23001
+   */
+
+//This program contains all of the method definitions for the string class - Project 2
+
+#include "string.hpp"
+
+// Default constructor: Initialize with empty string
+String::String() {
+    stringSize = 1;
+    str = new char[stringSize];
+    str[0] = '\0';
+}
+
+// Constructor with char argument: Initialize with single char
+String::String(char ch){
+    if (ch == '\0')
+        stringSize = 1;
+    else
+        stringSize = 2;
+    str = new char[stringSize];
+    str[0] = ch;
+    str[capacity()] = '\0';
+}
+
+// Constructor with char array argument: Initialize with char array
+String::String(const char char_array[]) {
+    int loopv = 0;
+
+    // Copy characters from char array to internal string until null character
+    while (char_array[loopv] != 0){
+        ++loopv;
+    }
+
+    stringSize = loopv + 1;
+    str = new char[stringSize];
+
+    loopv = 0;
+    while(char_array[loopv] != 0) {
+        str[loopv] = char_array[loopv];
+        ++loopv;
+        
+        if (loopv >= stringSize)
+            break;
+    }
+    // Ensure null-termination
+    str[loopv] = 0;
+}
+
+String::String(const String& rhs){
+    stringSize = rhs.stringSize;
+    str = new char[stringSize];
+    
+    for (int i = 0; i < stringSize; ++i){
+        str[i] = rhs.str[i];
+    }
+
+    str[stringSize] = '\0';
+}
+
+String::~String() {
+    stringSize = 0;
+    delete[] str;
+    str = nullptr;
+}
+
+void String::swap (String& rhs) {
+    char * temp = str;
+    str = rhs.str;
+    rhs.str = temp;
+
+    int tempSize = stringSize;
+    stringSize = rhs.stringSize;
+    rhs.stringSize = tempSize;
+}
+
+String& String::operator=(String rhs) {
+    swap(rhs);
+    return *this;
+}
+
+// Return the maximum capacity of the string
+int String::capacity() const {
+    return (stringSize - 1);
+}
+
+// Return the length of the string
+int String::length() const {
+    int result = 0;
+
+    // Count characters until null character
+    while (str[result] != '\0') {
+        ++result;
+    }
+
+    return result;
+}
+
+// Access operator for modifying characters
+char& String::operator[](int x) {
+    return str[x];
+}
+
+// Access operator for reading characters
+char String::operator[](int x) const {
+    if (x < 0)
+        x = 0;
+    return str[x];
+}
+
+String& String::operator+=(const String& rhs){
+    int offset = length();
+    int newsize = offset + rhs.length();
+
+    if(capacity() < newsize) {
+        // Create temporary array to hold the concatenated string
+        char* temp = new char[newsize + 1]; // +1 for null terminator
+
+        // Copy current string to temporary array
+        for (int i = 0; i < offset; ++i) {
+            temp[i] = str[i];
+        }
+
+        // Append rhs to temporary array
+        for (int i = 0; i < rhs.length(); ++i) {
+            temp[offset + i] = rhs.str[i];
+        }
+
+        temp[newsize] = '\0'; // Null-terminate the result
+
+        // Delete current string and update with the new concatenated string
+        delete[] str;
+        str = temp;
+        stringSize = newsize + 1; // Update stringSize
+
+    } else {
+        // Append rhs directly to current string
+        for (int i = 0; i < rhs.length(); ++i) {
+            str[offset + i] = rhs.str[i];
+        }
+
+        str[offset + rhs.length()] = '\0'; // Null-terminate the result
+    }
+
+    return *this;
+}
+
+// Addition operator for concatenating strings
+String operator+(String lhs, const String& rhs) {
+    String result = lhs; // Make a copy of lhs
+    result += rhs;       // Use the compound assignment operator
+    return result;
+}
+
+bool String::operator==(const String& rhs) const {
+    if (length() == rhs.length()) {
+        for (int i = 0; str[i] != '\0' && rhs[i] !='\0'; ++i) {
+            if (str[i] != rhs[i])
+                return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+// Equality operator for comparing char and string
+bool operator==(char lhs, const String& rhs) {
+    return (String(lhs) == rhs);
+}
+
+bool operator==(const char lhs[], const String& rhs) {
+    return (String(lhs) == rhs);
+}
+
+// Less than operator for comparing strings
+bool String::operator<(const String& rhs) const {
+    int index = 0;
+
+    // Compare characters until null character or difference found
+    while (str[index] != 0 && rhs.str[index] != 0 && str[index] == rhs.str[index]) {
+        ++index;
+    }
+    
+    // Return comparison result
+    return (str[index] < rhs.str[index]);
+}
+
+// Less than operator for comparing char array and string
+bool operator<(const char lhs[], const String& rhs) {
+    return String(lhs) < rhs;
+}
+
+// Less than operator for comparing char and string
+bool operator<(char ch, const String& rhs) {
+    return String(ch) < rhs;
+}
+
+String String::substr(int left, int right) const{
+    if(right < 0)
+        right = length();
+    if(left < 0)
+        left = 0;
+    if(left == right){
+        return String(str[left]);
+    }
+    if (left == 0) {
+        String result(right + 1);
+        for(int i = 0; i <= right; ++i)
+            result.str[i] = str[i];
+        return result;
+    }
+    if(right == 0) {
+        String result = str[left];
+        return String("");
+    }
+    int size = (right - left) + 1;
+    if(right == length())
+        size = (right - left);
+    if((right - left) == 1){
+        String temp(size + 1);
+        temp[0] = str[left];
+        temp[1] = str[right];
+        temp[2] = 0;
+        return temp;
+    }
+    else if(right - left == 3) {
+        String temp(size + 1);
+        for(int i = left; i <= right; ++i){
+            temp.str[i - left] = str[i];
+        }
+        return temp;
+    }
+    
+    else if(right - left == 4) {
+        String temp(size + 1);
+        for(int i = left; i <= right; ++i){
+            temp.str[i - left] = str[i];
+        }
+        //std::cout << str[4] << std::endl;
+        //temp[6] = str[6];
+        return temp;
+    }
+    else {
+        String temp(size);
+        for(int i = left; i <= right; ++i){
+            temp.str[i - left] = str[i]; 
+        }
+        return temp;
+    }
+}
+
+
+// Find character function: Finds the first occurrence of a character
+int String::findch(int start, char ch) const {
+    int loopv = start;
+    while ((loopv <= length()) && (ch != str[loopv])) {
+        ++loopv;
+    }
+    if (loopv > length())
+        return -1;
+    else
+        return loopv;
+}
+
+// Find string function: Finds the first occurrence of a substring
+int String::findstr(int start, const String& rhs) const {
+    int rhs_len = rhs.length();
+
+    // Loop through the string starting from the specified position
+    for (int i = start; i <= length() - rhs_len; ++i) {
+        int counter = 0;
+        // Check if substring matches
+        for (int j = i; j < rhs_len + i; ++j) {
+            if (str[j] == rhs.str[j - i]) {
+                counter++;
+            }
+        }
+        // If found, return the index
+        if (counter == rhs_len) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+// Input operator: Reads a string from input stream
+std::istream& operator>>(std::istream& in, String& rhs) {
+    // Allocate a temporary buffer to read the input
+    const int buffSize = 256; // Use any reasonable size
+    char buff[buffSize];
+
+    // Read characters into buffer
+    in >> buff;
+
+    if (!in.eof()) {
+        rhs = String(buff);
+    } else {
+        rhs = String();
+    }
+
+    return in;
+}
+
+// Output operator: Writes a string to output stream
+std::ostream& operator<<(std::ostream& out, const String& rhs) {
+    int loopv = 0;
+
+    // Output characters until null character
+    while (rhs.str[loopv] != 0) {
+        out << rhs.str[loopv];
+        ++loopv;
+    }
+
+    return out;
+}
+
+// Less than or equal to operator for comparing strings
+bool operator<=(const String& lhs, const String& rhs) {
+    return ((lhs < rhs) || (lhs == rhs)) && !(lhs > rhs);
+}
+
+// Not equal to operator for comparing strings
+bool operator!=(const String& lhs, const String& rhs) {
+    return (lhs > rhs) || (lhs < rhs);
+}
+
+// Greater than or equal to operator for comparing strings
+bool operator>=(const String& lhs, const String& rhs) {
+    return (lhs > rhs) || (lhs == rhs) && !(lhs < rhs);
+}
+
+// Greater than operator for comparing strings
+bool operator>(const String& lhs, const String& rhs) {
+    return !(lhs < rhs) && !(lhs == rhs);
+}
