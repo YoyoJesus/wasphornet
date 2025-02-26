@@ -1,0 +1,277 @@
+/* Reset some default styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #fff, #00bfff); /* Cool white to hover color gradient */
+    background-size: cover; /* Ensure the background covers the entire viewport */
+    background-attachment: fixed; /* Prevent background scrolling with the content */
+}
+
+/* Style the header and navigation */
+header {
+    background-color: rgb(43, 43, 43);
+    color: white;
+    padding: 20px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.menu a:hover {
+    color: #00bfff; /* Change the text color on hover */
+    font-weight: bolder; /* Add bold font weight on hover */
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.menu li:last-child {
+    margin-right: 0;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo {
+    position: relative;
+    max-width: 25%; /* Set a maximum width */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Vertically center the image */
+}
+
+.logo img {
+    max-width: 25%; /* Set a maximum width */
+    height: auto;
+    margin-left: auto; /* Push the image to the right */
+}
+
+.name {
+    color: #00bfff;
+    margin-left: 10px; /* Adjust the spacing between the image and the name */
+    font-weight: bold;
+    font-size: 25px;
+}
+
+/* General container styling */
+.container {
+    max-width: 1200px; /* Set a maximum width for the content container */
+    margin: 0 auto; /* Center the content horizontally */
+    padding: 20px; /* Add some padding to the content */
+}
+
+/* Content box styling */
+.content {
+    background-color: #ffffff; /* Background color for the content area */
+    padding: 20px; /* Add padding inside the content area */
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    border-radius: 5px; /* Add rounded corners to the content area */
+    color: rgb(43, 43, 43); /* Text color for the content */
+}
+
+/* Form Styles */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form input[type="submit"] {
+    background-color: #333;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form input[type="submit"]:hover {
+    background-color: #00bfff;
+}
+
+h2 {
+    color: #333;
+}
+
+.social-buttons {
+    text-align: center;
+}
+
+.social-buttons a {
+    font-size: 40px;
+    margin: 0 10px; /* Adjust the spacing between buttons */
+    color: rgb(43, 43, 43);
+}
+
+.social-buttons a:hover {
+    color: #00bfff; /* Change color on hover */
+}
+
+/* Social Media Buttons */
+.social-buttons {
+    text-align: center;
+}
+
+/* Add some spacing between the buttons */
+.social-buttons a {
+    text-decoration: none;
+    font-size: 40px;
+    margin: 0 10px; /* Adjust the spacing between buttons */
+    color: rgb(43, 43, 43);
+}
+
+.social-buttons a:hover {
+    color: #00bfff; /* Change color on hover */
+}
+
+/* Mobile-friendly adjustments */
+@media screen and (max-width: 768px) {
+    /* Adjust font size for better readability on smaller screens */
+    body {
+        font-size: 16px;
+    }
+
+    .menu li {
+        margin-right: 10px;
+    }
+
+    form {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+}
+
+/* Footer Styles */
+footer {
+    background-color: rgb(43, 43, 43); /* Background color for the footer */
+    color: #fff; /* Text color for the copyright text */
+    text-align: center; /* Center-align the text */
+    padding: 10px 0; /* Add padding to the footer */
+}
+
+/* Style the copyright text */
+.copyright {
+    font-size: 14px; /* Set the font size for the copyright text */
+}
+
+/* Style tables for better spacing and readability */
+.table-container {
+    overflow-x: auto; /* Allows scrolling on small screens */
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: rgb(43, 43, 43);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Ensure iframes scale properly */
+.iframe-container {
+    text-align: center;
+}
+
+iframe {
+    width: 100%;
+    max-width: 560px;
+    height: 315px;
+    border: none;
+}
+
+/* Mobile-friendly adjustments */
+@media screen and (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    iframe {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.largephoto {
+    width: 15%;
+    height: auto;
+}
+
+.centered {
+    text-align: center;
+}
+
+/* Style Headshot Photo on Resume Page */
+.profile-headshot {
+    position: absolute;
+    top: 10px;
+    right: 140px; /* Position to the right */
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+}
+
+.headshot {
+    width: 225%;
+    height: auto;
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 10%;
+}
+
+.contentResume {
+    position: relative;
+    padding-top: 5px; /* Optional: Adjust spacing from the top */
+    padding-right: 60px; /* Make space for the image */
+    background-color: #fff; /* Ensure the background is white */
+}
