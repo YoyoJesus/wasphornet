@@ -7,6 +7,7 @@
     
     <script src="https://kit.fontawesome.com/66ce6e07ec.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
     <header>
@@ -15,7 +16,12 @@
                 <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo">
                 <span class="name">Austin Sternberg</span>
             </div>
-            <ul class="menu">
+
+            <!-- Hamburger Icon -->
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            <script src="script.js"></script>
+            <!-- Menu (hidden on mobile until hamburger is clicked) -->
+            <ul class="menu" id="menu">
                 <li><a href="./">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
@@ -105,7 +111,7 @@
                     </table>
                 </div>
             </article>
-
+            <script src="script.js"></script>
             <article>
                 <h2>Misc. Projects</h2>
                 <div class="table-container">
@@ -137,5 +143,6 @@
             2025 Austin Sternberg - Built with HTML, CSS, and JavaScript
         </div>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>

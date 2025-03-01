@@ -1,11 +1,20 @@
 /* Reset some default styles */
-body {
+html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background: linear-gradient(to bottom, #fff, #00bfff); /* Cool white to hover color gradient */
     background-size: cover; /* Ensure the background covers the entire viewport */
     background-attachment: fixed; /* Prevent background scrolling with the content */
+    width: 100%;
+    height: 100%; /* Ensure it takes up the full height */
+}
+
+/* Use flexbox for the container */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 /* Style the header and navigation */
@@ -13,6 +22,7 @@ header {
     background-color: rgb(43, 43, 43);
     color: white;
     padding: 20px 0;
+    margin-top: auto; /* Push header to the bottom */
 }
 
 nav {
@@ -74,6 +84,9 @@ nav {
     max-width: 1200px; /* Set a maximum width for the content container */
     margin: 0 auto; /* Center the content horizontally */
     padding: 20px; /* Add some padding to the content */
+    flex: 1; /* Ensures this section takes up available space */
+    width: 100%;
+    margin: 0 auto;
 }
 
 /* Content box styling */
@@ -83,6 +96,8 @@ nav {
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
     border-radius: 5px; /* Add rounded corners to the content area */
     color: rgb(43, 43, 43); /* Text color for the content */
+    width: 100%;
+    margin: 0 auto;
 }
 
 /* Form Styles */
@@ -274,4 +289,170 @@ iframe {
     padding-top: 5px; /* Optional: Adjust spacing from the top */
     padding-right: 60px; /* Make space for the image */
     background-color: #fff; /* Ensure the background is white */
+}
+
+.typing-container {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(43, 43, 43);
+    display: flex;
+    align-items: center;
+}
+
+.typing-text {
+    color: #00bfff;
+}
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    background-color: black;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.interests {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.interests h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.interests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.interest-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.interest-item h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: #00bfff;
+}
+
+.interest-item p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none; /* Hide by default */
+    cursor: pointer;
+    font-size: 30px;
+    color: white;
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.menu li:last-child {
+    margin-right: 0;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+}
+
+.menu.active {
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    /* Show the hamburger icon on smaller screens */
+    .hamburger {
+        display: block;
+    }
+
+    /* Hide the menu by default on small screens */
+    .menu {
+        display: none;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding-top: 50px;
+    }
+
+    /* Show menu when active */
+    .menu.active {
+        display: block;
+    }
+
+    /* Style the menu items */
+    .menu li {
+        display: block;
+        margin: 20px 0;
+    }
+
+    .menu a {
+        font-size: 20px;
+        color: #00bfff;
+    }
+}
+
+/* Matrix Rain Styles for Hacker Mode */
+body.hacker-mode {
+    background-color: black;
+    color: green;
+    font-family: monospace;
+    overflow: hidden;
+}
+
+.matrix-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.matrix-rain span {
+    position: absolute;
+    color: #00ff00;
+    font-size: 20px;
+    animation: matrixRain 0.2s infinite;
+}
+
+@keyframes matrixRain {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
 }

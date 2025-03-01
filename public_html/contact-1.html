@@ -16,7 +16,12 @@
                 <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo">
                 <span class="name">Austin Sternberg</span>
             </div>
-            <ul class="menu">
+
+            <!-- Hamburger Icon -->
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+
+            <!-- Menu (hidden on mobile until hamburger is clicked) -->
+            <ul class="menu" id="menu">
                 <li><a href="./">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
@@ -26,13 +31,14 @@
             </ul>
         </nav>
     </header>
+
     <div class="container">
         <div class="content">
             <div class="centered">
                 <div class="social-buttons">
                     <a href="https://github.com/YoyoJesus" target="_blank"><i class="fab fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/austin-sternberg-765620218/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.youtube.com/channel/UClPq39i7rc0DrfKMlvWr4AQ"target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.youtube.com/channel/UClPq39i7rc0DrfKMlvWr4AQ" target="_blank"><i class="fab fa-youtube"></i></a>
                     <a href="https://www.reddit.com/user/Austinplaymms12" target="_blank"><i class="fab fa-reddit"></i></a>
                     <a href="https://bsky.app/profile/yoyojesus.bsky.social" target="_blank"><i class="fab fa-bluesky"></i></a>
                     <a href="https://www.instagram.com/yoyoje_sus/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -59,33 +65,37 @@
                     })();
 
                     document.getElementById("contact-form").addEventListener("submit", function(event) {
-                    event.preventDefault();
+                        event.preventDefault();
 
-                    // Get form data
-                    var name = document.getElementById("name").value;
-                    var email = document.getElementById("email").value;
-                    var message = document.getElementById("message").value;
+                        // Get form data
+                        var name = document.getElementById("name").value;
+                        var email = document.getElementById("email").value;
+                        var message = document.getElementById("message").value;
 
-                    // Send the email via Email.js
-                    emailjs.send("service_hmukr8x", "template_f07pdtf", {
-                        name: name,
-                        email: email,
-                        message: message
-                    }).then(function(response) {
-                        alert("Your message has been sent successfully!");
-                        document.getElementById("contact-form").reset(); // Clear form
-                    }, function(error) {
-                        alert("Something went wrong. Please try again.");
-                    });
+                        // Send the email via Email.js
+                        emailjs.send("service_hmukr8x", "template_f07pdtf", {
+                            name: name,
+                            email: email,
+                            message: message
+                        }).then(function(response) {
+                            alert("Your message has been sent successfully!");
+                            document.getElementById("contact-form").reset(); // Clear form
+                        }, function(error) {
+                            alert("Something went wrong. Please try again.");
+                        });
                     });
                 </script>
             </div>
         </div>
     </div>
+
+    <footer>
+        <div class="copyright">
+            2025 Austin Sternberg - Built with HTML, CSS, and JavaScript
+        </div>
+    </footer>
+
+    <!-- JavaScript File (moved to the bottom to improve page load speed) -->
+    <script src="script.js"></script>
 </body>
-<footer>
-    <div class="copyright">
-        2025 Austin Sternberg - Build with HTML, CSS, and JavaScript
-    </div>
-</footer>
 </html>

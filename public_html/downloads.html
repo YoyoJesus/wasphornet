@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Downloads</title>
+    <title>Austin Sternberg - Downloads</title>
+    
+    <script src="https://kit.fontawesome.com/66ce6e07ec.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Navigation Header -->
     <header>
         <nav>
             <div class="logo">
                 <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo">
                 <span class="name">Austin Sternberg</span>
             </div>
-            <ul class="menu">
+
+            <!-- Hamburger Icon -->
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            
+            <!-- Menu (hidden on mobile until hamburger is clicked) -->
+            <ul class="menu" id="menu">
                 <li><a href="./">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
@@ -26,19 +31,67 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="container">
-        <section class="content centered">
-            <p>Content Coming Soon</p>
-        </section>
+        <div class="content">
+            <h1>Code Examples - Downloads</h1>
+            <p>Welcome! Below are some of my code examples available for download. Feel free to explore and use them for reference!</p>
+
+            <table>
+                <tr>
+                    <th>Project/Example</th>
+                    <th>File Name</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>(CS3) Upper & Lower Bound Example</td>
+                    <td>bounds.cpp</td>
+                    <td><a href="./downloadables/bounds.cpp" download><button>Download</button></a></td>
+                </tr>
+                <tr>
+                    <td>(CS3) Increment & Decrement with iterators</td>
+                    <td>incremitdecremit.cpp</td>
+                    <td><a href="./downloadables/incremitdecremit.cpp" download><button>Download</button></a></td>
+                </tr>
+                <tr>
+                    <td>(CS3) List Example</td>
+                    <td>list.cpp</td>
+                    <td><a href="./downloadables/list.cpp" download><button>Download</button></a></td>
+                </tr>
+                <tr>
+                    <td>(CS3) Maps Example</td>
+                    <td>maps.cpp</td>
+                    <td><a href="./downloadables/maps.cpp" download><button>Download</button></a></td>
+                </tr>
+                <tr>
+                    <td>(HTML) Basic Overview</td>
+                    <td>HTML.pdf</td>
+                    <td><a href="./downloadables/HTML.pdf" download><button>Download</button></a></td>
+                </tr>
+                <tr>
+                    <td>(HacKSU) picoCTF Write-ups</td>
+                    <td>Capture-the-Flag.zip</td>
+                    <td><a href="./downloadables/Capture-the-Flag.zip" download><button>Download</button></a></td>
+                </tr>
+                <tr>
+                    <td>Elon Sort - BOGO sort but worse</td>
+                    <td>elonsort.cpp</td>
+                    <td><a href="./downloadables/elonsort.cpp" download><button>Download</button></a></td>
+                </tr>
+                <tr>
+                    <td>Simple Shell-spinner Battlebot</td>
+                    <td>Synthetic_Storm.zip</td>
+                    <td><a href="./downloadables/Synthetic_Storm.zip" download><button>Download</button></a></td>
+                </tr>
+            </table>
+        </div>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="copyright">
             2025 Austin Sternberg - Built with HTML, CSS, and JavaScript
         </div>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>

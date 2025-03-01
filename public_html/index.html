@@ -13,7 +13,12 @@
                 <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo">
                 <span class="name">Austin Sternberg</span>
             </div>
-            <ul class="menu">
+
+            <!-- Hamburger Icon -->
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            
+            <!-- Menu (hidden on mobile until hamburger is clicked) -->
+            <ul class="menu" id="menu">
                 <li><a href="./">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
@@ -23,18 +28,72 @@
             </ul>
         </nav>
     </header>
+    
     <div class="container">
         <div class="content">
             <h1>Welcome!</h1>
-            <p class="long">This site serves as a list of some of the projects I have been working on over the years.</p>
-            <p class = "long">Please feel free to scroll around and take a look!</p>
-            <p class="long">Site is still under construction. I am not able to put a ton of time into this project, but I am trying.</p>
+            <div class="typing-container">
+                <p class="intro">I am a <span class="typing-text"></span><span class="cursor">|</span></p>
+            </div>
+            <p>This website serves as a documentation of my work & a portfolio</p>
+            <br>
+            <br>
+            <h2>My Non-Programming Interests</h2>
+            <div class="interests-grid">
+                <div class="interest-item">
+                    <h3>Dungeons & Dragons</h3>
+                    <p>Worldbuilding, character creation, and immersive storytelling are some of my favorite things in D&D. Right now, I'm playing in a campaign inspired by <i>The Darkest Minds</i>.</p>
+                </div>
+                <div class="interest-item">
+                    <h3>Gaming</h3>
+                    <p>I enjoy both casual and competitive gaming. Some of my favorite titles include 
+                        <b>
+                            <ul>
+                                <li>Bioshock</li>
+                                <li>Baldur’s Gate 3</li>
+                                <li>Halo</li>
+                                <li>Hearts of Iron</li>
+                                <li>Balatro</li>
+                            </ul></b></p>
+                </div>
+                <div class="interest-item">
+                    <h3>Music</h3>
+                    <p>While my music taste can be vast, my friends describe my favorites as 'emo'. Some go-to artists: 
+                        <b>
+                            <ul>
+                                <li>Twenty One Pilots</li>
+                                <li>Green Day</li>
+                                <li>Sabaton</li>
+                                <li>Gorillaz</li>
+                                <li>Holly Humberstone</li>
+                            </ul></b></p>
+                </div>
+                <div class="interest-item">
+                    <h3>Movies & TV</h3>
+                    <p>My favorite genres are primarily sci-fi and fantasy. Some of my favorite movies and shows include: 
+                        <b>
+                            <ul>
+                                <li>Doctor Who</li>
+                                <li>Mr. Robot</li>
+                                <li>Lord of the Rings</li>
+                                <li>The Addams Family</li>
+                                <li>The Martian</li>
+                                <li>For All Mankind</li>
+                                <li>Daredevil</li>
+                            </ul>
+                        </b></p>
+                </div>
+            </div>
         </div>
-    </div>    
+    </div>  
+
+    <footer>
+        <div class="copyright">
+            2025 Austin Sternberg - Built with HTML, CSS, and JavaScript
+        </div>
+    </footer>
+
+    <!-- JavaScript File (placed here to ensure HTML is fully loaded before script execution) -->
+    <script src="script.js"></script>
 </body>
-<footer>
-    <div class="copyright">
-        2025 Austin Sternberg - Build with HTML, CSS, and JavaScript
-    </div>
-</footer>
 </html>

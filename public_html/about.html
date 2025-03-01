@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Webpage</title>
+    <title>About Me - Austin Sternberg</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,7 +13,12 @@
                 <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo">
                 <span class="name">Austin Sternberg</span>
             </div>
-            <ul class="menu">
+
+            <!-- Hamburger Icon -->
+            <div class="hamburger" id="hamburger-menu">&#9776;</div>
+            
+            <!-- Menu (hidden on mobile until hamburger is clicked) -->
+            <ul class="menu" id="menu">
                 <li><a href="./">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
@@ -23,30 +28,43 @@
             </ul>
         </nav>
     </header>
+
     <div class="container">
         <div class="content">
             <h1>About Me</h1>
-            <br/>
+
+            <p>Hey, I'm Austin! I'm a Computer Science sophomore at Kent State, focusing on cybersecurity with a minor in Computer Engineering Technology. I like breaking things (ethically) and figuring out how to make them more secure.</p>
+            
             <ul>
-                <li><strong>Academic Journey:</strong> I'm currently embarking on my academic journey at Kent State, where I'm majoring in Computer Science with a focus on cybersecurity. This dynamic field constantly challenges and excites me.</li>
-                <br/>
-                <li><strong>Tech Enthusiast:</strong> Beyond my coursework, I'm a tech enthusiast with diverse interests. I have a deep appreciation for 3D printing, engineering, and programming, which keep me engaged and creative.</li>
-                <br/>
-                <li><strong>Engineering Curiosity:</strong> I'm fascinated by the intersection of technology and engineering. Exploring how these two realms come together to solve real-world problems is a personal fascination of mine.</li>
-                <br/>
-                <li><strong>Coding Enthusiast:</strong> Coding isn't just a skill for me; it's a passion. I'm always eager to take on coding challenges and embark on new programming projects.</li>
-                <br/>
-                <li><strong>Future Goals:</strong> With a strong foundation in computer science and a concentration in cybersecurity, I'm committed to becoming a part of the next generation of tech innovators, making a positive impact on our digital world.</li>
-                <br/>
-                <li><strong>Sharing My Journey:</strong> I invite you to follow along as I navigate through my academic pursuits and tech adventures. I'll be sharing insights, projects, and discoveries as I progress.</li>
-                <br/>
+                <li><strong>🔒 Cybersecurity & Hacking:</strong> I'm diving deep into penetration testing, ethical hacking, and secure coding practices. I love figuring out vulnerabilities before the bad guys do.</li>
+                <br>
+                <li><strong>🤖 Robotics & Engineering:</strong> I’m heavily involved in combat robotics, where I help build, maintain, and (occasionally) fix bots that take a serious beating.</li>
+                <br>
+                <li><strong>🖥️ Tech & Programming:</strong> I’ve worked on projects ranging from web development to machine learning and VR-based motion sickness research. Whether it's coding or hardware, I'm always up for a challenge.</li>
+                <br>
+                <li><strong>🎲 Gaming & D&D:</strong> When I’m not messing with code, I’m probably playing Dungeons & Dragons, playing <i>Hearts of Iron</i>, or getting lost in sci-fi and dystopian worlds.</li>
+                <br>
+                <li><strong>📡 Networking & IT:</strong> I work as an IT Assistant, helping maintain networks and troubleshoot hardware issues. Summer jobs in IT have given me hands-on experience with real-world tech problems.</li>
+                <br>
+                <li><strong>🚀 Future Goals:</strong> My ultimate goal is to work in penetration testing, finding and fixing security flaws before they become real threats. I want to be on the front lines of cybersecurity, making the digital world safer.</li>
             </ul>
+
+            <p>This site is where I document my projects, experiences, and things that interest me. Feel free to explore, and if you want to connect, check out my <a href="contact-1.html">contact page</a>!</p>
+            
+            <br>
+            <br>
+            <div class="quote centered">
+                <p>"Anything out there is vulnerable to attack given enough time and resources." – <b>Kevin Mitnick</b></p>
+            </div>
         </div>
     </div>    
+
+    <footer>
+        <div class="copyright">
+            2025 Austin Sternberg - Built with HTML, CSS, and JavaScript
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-<footer>
-    <div class="copyright">
-        2025 Austin Sternberg - Build with HTML, CSS, and JavaScript
-    </div>
-</footer>
 </html>
