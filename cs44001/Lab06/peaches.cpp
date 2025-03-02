@@ -70,7 +70,7 @@ int main(){
 	// it=basket.erase(it);
    //   }else
 	// ++it;
-   remove_copy_if(basket.begin(), basket.end(), front_inserter(peck), [](const Peaches& p){
+   remove_copy_if(basket.begin(), basket.end(), back_inserter(peck), [](const Peaches& p){
       return !p.ripe;
    });
    basket.erase(remove_if(basket.begin(), basket.end(), [](const Peaches& p){
