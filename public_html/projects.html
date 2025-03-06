@@ -3,146 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Austin Sternberg - Projects</title>
-    
-    <script src="https://kit.fontawesome.com/66ce6e07ec.js" crossorigin="anonymous"></script>
+    <title>Projects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+            <div class="navbar-brand" href="#">
+                <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo" style="width: 50px;">
                 <span class="name">Austin Sternberg</span>
             </div>
-
-            <!-- Hamburger Icon -->
-            <div class="hamburger" id="hamburger-menu">&#9776;</div>
-            <script src="script.js"></script>
-            <!-- Menu (hidden on mobile until hamburger is clicked) -->
-            <ul class="menu" id="menu">
-                <li><a href="./">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="downloads.html">Downloads</a></li>
-                <li><a href="resume.html">Resume</a></li>
-                <li><a href="contact-1.html">Contact</a></li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="./">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="downloads.html">Downloads</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="resume.html">Resume</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="contact-1.html">Contact</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 
-    <main class="container">
-        <section class="content">
-            <article>
-                <h2>Research</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Research</th>
-                                <th>Link</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Investigating Stress-Induced Driving Behaviors</td>
-                                <td><a href="https://docs.google.com/presentation/d/1qjiWBtG510HxopPKbXi8KIrd88_-oQeh/edit#slide=id.p2" target="_blank">Research Presentation</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </article>
+    <div class="container mt-5">
+        <main class="container">
+            <section class="content">
+                <article>
+                    <h2>Research</h2>
+                    <div class="table-container">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Research</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Investigating Stress-Induced Driving Behaviors</td>
+                                    <td><a href="https://docs.google.com/presentation/d/1qjiWBtG510HxopPKbXi8KIrd88_-oQeh/edit#slide=id.p2" target="_blank">Research Presentation</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </article>
 
-            <article>
-                <h2>Programming Projects</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Project</th>
-                                <th>Link</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Snap & Server (HackDearborn 3)</td>
-                                <td><a href="https://github.com/Yug3737/HackDearborn2024" target="_blank">GitHub Repo</a></td>
-                            </tr>
-                            <tr>
-                                <td>KSU Combat Robotics Website</td>
-                                <td><a href="https://www.ksucombat.club/" target="_blank">View It Here</a></td>
-                            <tr>
-                                <td>Project Green (KHE24)</td>
-                                <td><a href="https://github.com/YoyoJesus/Project-Green" target="_blank">GitHub Repo</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </article>
+                <article>
+                    <h2>Programming Projects</h2>
+                    <div class="table-container">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Project</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Snap & Server (HackDearborn 3)</td>
+                                    <td><a href="https://github.com/Yug3737/HackDearborn2024" target="_blank">GitHub Repo</a></td>
+                                </tr>
+                                <tr>
+                                    <td>KSU Combat Robotics Website</td>
+                                    <td><a href="https://www.ksucombat.club/" target="_blank">View It Here</a></td>
+                                <tr>
+                                    <td>Project Green (KHE24)</td>
+                                    <td><a href="https://github.com/YoyoJesus/Project-Green" target="_blank">GitHub Repo</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
 
-            <article>
-                <h2>Combat Robotics</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Season</th>
-                                <th>Video</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2023 Season (HS)</td>
-                                <td>
-                                    <div class="iframe-container">
-                                        <iframe src="https://www.youtube.com/embed/n7SJnRNeklM?si=oyU60oNtmcQ7PZ99" allowfullscreen></iframe>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2022 Season (HS)</td>
-                                <td>
-                                    <div class="iframe-container">
-                                        <iframe src="https://www.youtube.com/embed/BHme7fJbSTU?si=ko8lP8m4gRiZjeqG" allowfullscreen></iframe>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </article>
-            <script src="script.js"></script>
-            <article>
-                <h2>Misc. Projects</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Project</th>
-                                <th>Video</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Game of Drones</td>
-                                <td>
-                                    <div class="iframe-container">
-                                        <iframe src="https://www.youtube.com/embed/zy-A3tYQ9-8?si=RbQO6KYsHl4RdqMp" allowfullscreen></iframe>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </article>
-        </section>
-    </main>
+                <article>
+                    <h2>Combat Robotics</h2>
+                    <div class="table-container">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Season</th>
+                                    <th>Video</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2023 Season (HS)</td>
+                                    <td>
+                                        <div class="iframe-container">
+                                            <iframe src="https://www.youtube.com/embed/n7SJnRNeklM?si=oyU60oNtmcQ7PZ99" allowfullscreen></iframe>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2022 Season (HS)</td>
+                                    <td>
+                                        <div class="iframe-container">
+                                            <iframe src="https://www.youtube.com/embed/BHme7fJbSTU?si=ko8lP8m4gRiZjeqG" allowfullscreen></iframe>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+                <script src="script.js"></script>
+                <article>
+                    <h2>Misc. Projects</h2>
+                    <div class="table-container">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Project</th>
+                                    <th>Video</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Game of Drones</td>
+                                    <td>
+                                        <div class="iframe-container">
+                                            <iframe src="https://www.youtube.com/embed/zy-A3tYQ9-8?si=RbQO6KYsHl4RdqMp" allowfullscreen></iframe>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
 
-    <footer>
-        <div class="copyright">
-            2025 Austin Sternberg - Built with HTML, CSS, and JavaScript
+    <footer class="footer-custom text-center py-3">
+        <div class="container">
+            <p class="mb-0">2025 Austin Sternberg - Built with HTML, CSS, and JavaScript</p>
         </div>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

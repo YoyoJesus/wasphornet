@@ -41,8 +41,11 @@ int main(){
    //   it->color = rand() % 2 == 1 ? "green" : "red";
    //   it->weight = minWeight + 
    //}
+
+   //passing maxWeight and minWeight by reference - needed for lambda
    generate(crate.begin(), crate.end(), [&maxWeight, &minWeight](){
       Apples a;
+      // pick a random number between minWeight and maxWeight - type casting
       a.weight = minWeight + static_cast<double>(rand())/RAND_MAX*(maxWeight - minWeight);
       a.color = rand() % 2 == 1 ? "green" : "red";
       return a;
@@ -54,6 +57,7 @@ int main(){
    //for(const auto &e: crate) {
    //   e.print();
    //}
+   cout << "all apples" << endl;
    for_each(crate.begin(), crate.end(), [](const Apples &element){
       element.print();
    });
@@ -80,10 +84,16 @@ int main(){
    //for(int i=0; i < size; ++i)
    //   if(crate[i].weight > toFind)
 	// cout << i << ", ";
+
+   // iterate through the crate and find all apples heavier than toFind
+   // have to use iterators in the for loop so we can pass the iterator to find_if()
    for (auto it = crate.begin(); it != crate.end();) {
+      // call find_if() to find the next apple heavier than toFind
       it = find_if(it, crate.end(), [&toFind](const Apples &element){
          return element.weight > toFind;
       });
+
+      // if an apple heavier than toFind is found, print its position
       if (it != crate.end()) {
          cout << it - crate.begin() << ", ";
          ++it;
@@ -98,18 +108,20 @@ int main(){
    //for(int i=1; i < size; ++i)
    //   if(crate[i].weight > heaviest) heaviest = crate[i].weight; 
    //cout << "Heaviest apple weighs: " << heaviest << " oz" << endl;
-   max_element(crate.begin(), crate.end(), [](const Apples &a, const Apples &b){
+   auto max = max_element(crate.begin(), crate.end(), [](const Apples &a, const Apples &b){
       return a.weight < b.weight;
    });
+   cout << "Heaviest apple weighs: " << max->weight << " oz" << endl;
 
    //// for_each() or accumulate()
-   //double sum = 0;
+   double sum = 0;
    //for(int i=0; i < size; ++i)
    //   sum += crate[i].weight;
    //cout << "Total apple weight is: " << sum << " oz" << endl;
-   accumulate(crate.begin(), crate.end(), 0.0, [](double sum, const Apples &element){
-      return sum + element.weight;
+   sum = accumulate(crate.begin(), crate.end(), 0.0, [](double a, const Apples &b){
+      return a + b.weight;
    });
+   cout << "Total apple weight is: " << sum << " oz" << endl;
 
    // transform();
    cout << "How much should they grow: ";
@@ -166,6 +178,7 @@ int main(){
    //for(const auto &e: crate) {
    //   e.print();
    //}
+   cout << "sorted remaining apples" << endl;
    for_each(crate.begin(), crate.end(), [](const Apples &element){
       element.print();
    });

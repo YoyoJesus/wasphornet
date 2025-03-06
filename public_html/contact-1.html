@@ -3,36 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Webpage</title>
-    
-    <script src="https://kit.fontawesome.com/66ce6e07ec.js" crossorigin="anonymous"></script>
-    
+    <title>Contact</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/66ce6e07ec.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+            <div class="navbar-brand" href="#">
+                <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo" style="width: 50px;">
                 <span class="name">Austin Sternberg</span>
             </div>
-
-            <!-- Hamburger Icon -->
-            <div class="hamburger" id="hamburger-menu">&#9776;</div>
-
-            <!-- Menu (hidden on mobile until hamburger is clicked) -->
-            <ul class="menu" id="menu">
-                <li><a href="./">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="downloads.html">Downloads</a></li>
-                <li><a href="resume.html">Resume</a></li>
-                <li><a href="contact-1.html">Contact</a></li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="./">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="downloads.html">Downloads</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="resume.html">Resume</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="contact-1.html">Contact</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="content">
             <div class="centered">
                 <div class="social-buttons">
@@ -47,14 +46,22 @@
                 <h2>Contact Me</h2>
                 <p>Feel free to reach out to me on any of the platforms above or fill out the form below to send me an email.</p>
                 <form id="contact-form">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" required></textarea>
-                    <input type="submit" value="Send">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea class="form-control" id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
                 </form>
+                <br/>
+                <p class="centered"><strong>Please Note: </strong> After you click 'submit' it might take a second before you get confirmation!</p>
 
                 <!-- Include Email.js SDK -->
                 <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
@@ -89,13 +96,15 @@
         </div>
     </div>
 
-    <footer>
-        <div class="copyright">
-            2025 Austin Sternberg - Built with HTML, CSS, and JavaScript
+    <footer class="footer-custom text-center py-3">
+        <div class="container">
+            <p class="mb-0">2025 Austin Sternberg - Built with HTML, CSS, and JavaScript</p>
         </div>
     </footer>
 
-    <!-- JavaScript File (moved to the bottom to improve page load speed) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

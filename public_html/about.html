@@ -3,68 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me - Austin Sternberg</title>
+    <title>About Me</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+            <div class="navbar-brand" href="#">
+                <img class="largephoto" src="./assets/myAvatar.jpg" alt="Logo" style="width: 50px;">
                 <span class="name">Austin Sternberg</span>
             </div>
-
-            <!-- Hamburger Icon -->
-            <div class="hamburger" id="hamburger-menu">&#9776;</div>
-            
-            <!-- Menu (hidden on mobile until hamburger is clicked) -->
-            <ul class="menu" id="menu">
-                <li><a href="./">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="downloads.html">Downloads</a></li>
-                <li><a href="resume.html">Resume</a></li>
-                <li><a href="contact-1.html">Contact</a></li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="./">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="downloads.html">Downloads</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="resume.html">Resume</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="contact-1.html">Contact</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="content">
             <h1>About Me</h1>
-
             <p>Hey, I'm Austin! I'm a Computer Science sophomore at Kent State, focusing on cybersecurity with a minor in Computer Engineering Technology. I like breaking things (ethically) and figuring out how to make them more secure.</p>
             
-            <ul>
+            <ul class="list-unstyled"></ul>
                 <li><strong>🔒 Cybersecurity & Hacking:</strong> I'm diving deep into penetration testing, ethical hacking, and secure coding practices. I love figuring out vulnerabilities before the bad guys do.</li>
-                <br>
                 <li><strong>🤖 Robotics & Engineering:</strong> I’m heavily involved in combat robotics, where I help build, maintain, and (occasionally) fix bots that take a serious beating.</li>
-                <br>
                 <li><strong>🖥️ Tech & Programming:</strong> I’ve worked on projects ranging from web development to machine learning and VR-based motion sickness research. Whether it's coding or hardware, I'm always up for a challenge.</li>
-                <br>
                 <li><strong>🎲 Gaming & D&D:</strong> When I’m not messing with code, I’m probably playing Dungeons & Dragons, playing <i>Hearts of Iron</i>, or getting lost in sci-fi and dystopian worlds.</li>
-                <br>
                 <li><strong>📡 Networking & IT:</strong> I work as an IT Assistant, helping maintain networks and troubleshoot hardware issues. Summer jobs in IT have given me hands-on experience with real-world tech problems.</li>
-                <br>
                 <li><strong>🚀 Future Goals:</strong> My ultimate goal is to work in penetration testing, finding and fixing security flaws before they become real threats. I want to be on the front lines of cybersecurity, making the digital world safer.</li>
             </ul>
 
+            <br/>
+            <br/>
+            
             <p>This site is where I document my projects, experiences, and things that interest me. Feel free to explore, and if you want to connect, check out my <a href="contact-1.html">contact page</a>!</p>
             
-            <br>
-            <br>
-            <div class="quote centered">
-                <p>"Anything out there is vulnerable to attack given enough time and resources." – <b>Kevin Mitnick</b></p>
+            <div class="quote text-center mt-5"></div>
+                <p class="centered">"Anything out there is vulnerable to attack given enough time and resources." – <b>Kevin Mitnick</b></p>
             </div>
         </div>
     </div>    
 
-    <footer>
-        <div class="copyright">
-            2025 Austin Sternberg - Built with HTML, CSS, and JavaScript
+    <footer class="footer-custom text-center py-3">
+        <div class="container">
+            <p class="mb-0">2025 Austin Sternberg - Built with HTML, CSS, and JavaScript</p>
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

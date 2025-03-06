@@ -18,6 +18,7 @@ using std::cin; using std::cout; using std::endl;
 using std::string;
 using std::vector; using std::deque;
 using std::bind;
+using std::placeholders::_1;
 
 struct Peaches{
    double weight; // oz
@@ -53,10 +54,11 @@ int main(){
 
    
    // for_each() possibly
-   //cout << "all peaches"<< endl;
+   cout << "all peaches"<< endl;
    //for(const auto &e: basket) {
    //   e.print(); 
    //}
+
    for_each(basket.begin(), basket.end(), [](const Peaches &element){
       element.print();
    });
@@ -70,12 +72,17 @@ int main(){
 	// it=basket.erase(it);
    //   }else
 	// ++it;
+
+   //copy all ripe peaches to peck
    remove_copy_if(basket.begin(), basket.end(), back_inserter(peck), [](const Peaches& p){
       return !p.ripe;
    });
-   basket.erase(remove_if(basket.begin(), basket.end(), [](const Peaches& p){
+
+   //remove ripe peaches from basket - remove erase idiom
+   auto remove_bas = remove_if(basket.begin(), basket.end(), [](const Peaches& p){
       return p.ripe;
-   }), basket.end());
+   });
+   basket.erase(remove_bas, basket.end());
 
    // for_each() possibly
    cout << endl;
@@ -130,17 +137,20 @@ int main(){
    double jamWeight = 0; 
 
    // create a binder for the weight comparison
-   auto isLessThanWeightToJam = bind(std::less<double>(), std::placeholders::_1, weightToJam);
+   auto isLessThanWeightToJam = bind(std::less<double>(), _1, weightToJam);
 
    // accumulate the weight of small ripe peaches
    jamWeight = accumulate(peck.begin(), peck.end(), 0.0, [&isLessThanWeightToJam](double sum, const Peaches& p){
-      return isLessThanWeightToJam(p.weight) ? sum + p.weight : sum;
+      // ternary operator to add weight if less than weightToJam - check if weight is less than weightToJam
+      return isLessThanWeightToJam(p.weight) ? sum + p.weight : sum; 
    });
 
    // remove small ripe peaches from the peck - since they aew now 'jamed'
-   peck.erase(remove_if(peck.begin(), peck.end(), [&isLessThanWeightToJam](const Peaches& p){
+   // remove erase idiom
+   auto remove_jamed = remove_if(peck.begin(), peck.end(), [&isLessThanWeightToJam](const Peaches& p){
       return isLessThanWeightToJam(p.weight);
-   }), peck.end());
+   });
+   peck.erase(remove_jamed, peck.end());
    //for(auto it=peck.begin(); it != peck.end();)
    //   if(it->weight < weightToJam){
 	// jamWeight += it->weight;
