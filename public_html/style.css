@@ -303,6 +303,11 @@ iframe {
     color: #00bfff;
 }
 
+#typing-text {
+    color: #00bfff; /* Change to any color you want */
+    font-weight: bold;
+}
+
 .cursor {
     display: inline-block;
     width: 8px;
