@@ -20,3 +20,5 @@
 .vscode-server/
 .xemacs/
 shared/
+.npm/
+.esd_auth

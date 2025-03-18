@@ -26,6 +26,7 @@
                     <li class="nav-item"><a class="nav-link text-white" href="downloads.html">Downloads</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="resume.html">Resume</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="contact-1.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="guestbook.php">Guestbook</a></li>
                 </ul>
             </div>
         </nav>
@@ -67,30 +68,36 @@
                 <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
                 <script type="text/javascript">
-                    (function() {
-                        emailjs.init("3eJOPD6v_R2iDRXy2");
-                    })();
+                    fetch('config.json')
+                        .then(response => response.json())
+                        .then(config => {
+                            emailjs.init(config[0].publicKey);
 
-                    document.getElementById("contact-form").addEventListener("submit", function(event) {
-                        event.preventDefault();
+                            document.getElementById("contact-form").addEventListener("submit", function(event) {
+                                event.preventDefault();
 
-                        // Get form data
-                        var name = document.getElementById("name").value;
-                        var email = document.getElementById("email").value;
-                        var message = document.getElementById("message").value;
+                                // Get form data
+                                var name = document.getElementById("name").value;
+                                var email = document.getElementById("email").value;
+                                var message = document.getElementById("message").value;
 
-                        // Send the email via Email.js
-                        emailjs.send("service_hmukr8x", "template_f07pdtf", {
-                            name: name,
-                            email: email,
-                            message: message
-                        }).then(function(response) {
-                            alert("Your message has been sent successfully!");
-                            document.getElementById("contact-form").reset(); // Clear form
-                        }, function(error) {
-                            alert("Something went wrong. Please try again.");
+                                // Send the email via Email.js
+                                emailjs.send(config[0].serviceID, config[0].templateID, {
+                                    name: name,
+                                    email: email,
+                                    message: message
+                                }).then(function(response) {
+                                    alert("Your message has been sent successfully!");
+                                    document.getElementById("contact-form").reset(); // Clear form
+                                }, function(error) {
+                                    alert("Something went wrong. Please try again.");
+                                });
+                            });
+                        })
+                        .catch(error => {
+                            console.error("Error loading config.json:", error);
+                            alert("Unable to load configuration. Please try again later.");
                         });
-                    });
                 </script>
             </div>
         </div>

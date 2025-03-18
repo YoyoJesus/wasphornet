@@ -25,6 +25,7 @@
                     <li class="nav-item"><a class="nav-link text-white" href="downloads.html">Downloads</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="resume.html">Resume</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="contact-1.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="guestbook.php">Guestbook</a></li>
                 </ul>
             </div>
         </nav>
@@ -37,7 +38,7 @@
                 <p class="intro">I am  <span id="typing-text"></span><span class="cursor">|</span></p>
             </div>
             <p>This website serves as a documentation of my work & a portfolio</p>
-            <br>
+            
             <br>
             <h2>My Non-Programming Interests</h2>
             <div class="interests-grid">
