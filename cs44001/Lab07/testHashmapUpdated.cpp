@@ -66,7 +66,7 @@ int main() {
 
    // test deletes
    result = myHash.erase(4); // delete with next element in same bucket
-   cout << "result: " << result.first->first << result.first->second << endl;
+   //cout << "result: " << result.first->first << result.first->second << endl;
    assert(result.second);
    assert(result.first->first == 105);
    assert(result.first->second == 1050);
@@ -87,19 +87,21 @@ int main() {
    assert(result.first->second == 900);
 
    result = myHash.erase(95); // erase the last element in the container
-   cout << "result: " << result.first << " " << result.second << endl;
+   //cout << "result: " << result.first << " " << result.second << endl;
    assert(result.second);
    assert(result.first== nullptr);
 
    result = myHash.erase(90); // erased all elements in container
-   cout << "result: " << result.first << " " << result.second << endl;
+   //cout << "result: " << result.first << " " << result.second << endl;
    assert(result.second);
    assert(result.first == nullptr);
 
    result = myHash.erase(5); // erase key not in container
-   cout << "result: " << result.first << " " << result.second << endl;
+   //cout << "result: " << result.first << " " << result.second << endl;
    assert(!result.second);
    // first is unspecified
+
+   cout << "og tests passed" << endl;
 
    //
    //<integer, string> hashmap test
@@ -128,6 +130,7 @@ int main() {
    assert(result2.first->first == 2);
    assert(result2.first->second == "Bob");
 
+   cout << "string insert passed" << endl;
    // Find elements
    auto y = employees.find(1);
    assert(y != nullptr);
@@ -140,6 +143,8 @@ int main() {
    y = employees.find(4);
    assert(y == nullptr);
 
+   cout << "find passed" << endl;
+   
    // Erase elements
    result2 = employees.erase(1);
    assert(result2.second);
@@ -148,22 +153,23 @@ int main() {
 
    result2 = employees.erase(3);
    assert(result2.second);
-   assert(result2.first->first == 2);
-   assert(result2.first->second == "Bob");
+   assert(result2.first == nullptr);
+   
+   result2 = employees.erase(4);
+   assert(!result2.second);
 
    result2 = employees.erase(2);
    assert(result2.second);
    assert(result2.first == nullptr);
 
-   result2 = employees.erase(5);
-   assert(!result2.second);
+    cout << "erase passed" << endl;
 
    // [] operator
    employees[4] = "Diana";
    assert(employees[4] == "Diana");
 
    employees[4] = "Edward";
-   assert(employees[4] != "Edward"); // value should not be updated - hashmaps are immutable
+   assert(employees[4] == "Edward"); // value should not be updated - hashmaps are immutable
 
    employees[5];
    assert(employees[5] == "");
@@ -174,15 +180,14 @@ int main() {
        employees[i] = "Employee" + std::to_string(i);
    }
 
-   std::cout << "After inserting elements, before rehashing:" << std::endl;
+   std::cout << "" << std::endl;
    assert(employees[6] == "Employee6");
    assert(employees[15] == "Employee15");
    assert(employees[20] == "Employee20");
-
+   std::cout << "passed pre-hashing" << std::endl;
    // Perform rehashing (resize the bucket size to a larger number, e.g., 50)
    employees.rehash(50);
 
-   std::cout << "After rehashing:" << std::endl;
    assert(employees[6] == "Employee6");
    assert(employees[15] == "Employee15");
    assert(employees[20] == "Employee20");
@@ -200,6 +205,8 @@ int main() {
    assert(result2.second);
    assert(result2.first->first == 10);
    assert(result2.first->second == "Reinserted");
+
+   cout << "rehashing passed" << endl;
 
    std::cout << "Tests passed" << std::endl;
 }

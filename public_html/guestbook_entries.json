@@ -3,5 +3,15 @@
         "timestamp": "2025-03-18 14:55:27",
         "name": "Austin",
         "message": "Welcome to the guestbook, feel free to mark your name and message here to note that you visited my website"
+    },
+    {
+        "timestamp": "2025-03-18 18:21:40",
+        "name": "Conner Brunner",
+        "message": "Hi Austin! How's your day? I hope it's good. Giovani, if you're seeing this, hello. I hope that the cats are doing well!"
+    },
+    {
+        "timestamp": "2025-03-19 16:55:58",
+        "name": "Ian",
+        "message": "Imagine being like [them](https:\/\/www.4chan.org)"
     }
 ]

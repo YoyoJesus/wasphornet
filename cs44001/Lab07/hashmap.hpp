@@ -176,40 +176,23 @@ template <typename Key, typename Value, typename Compare, typename Hash>
       auto it = findElement(x, bucket);
    
       if (it != elems_[bucket].end()) {
-         std::cout << "Erasing key: " << x << " from bucket " << bucket << std::endl;
+         
+         if (std::next(it) == elems_[bucket].end()) {
+            ++bucket;
+         }
+
+         elems_[bucket].erase(it);
          --size_;
-         it = elems_[bucket].erase(it); // Remove the element
-   
-         std::cout << "Size after erase: " << size_ << std::endl;
-   
-         // If hashmap is now empty, return nullptr immediately
-         if (size_ == 0) {
-            std::cout << "Hashmap is now empty, returning nullptr" << std::endl;
-            return make_pair(nullptr, true);  // ensure nullptr is returned
-         }
-   
-         // If there's another element in the same bucket, return it
-         if (it != elems_[bucket].end()) {
-            std::cout << "Returning next element in bucket: " << it->first << std::endl;
-            return make_pair(&(*it), true);
-         }
-   
-         // Look for the next non-empty bucket
-         for (size_t i = 1; i < hash_.numBuckets(); ++i) {
-            size_t newBucket = (bucket + i) % hash_.numBuckets();
-            if (!elems_[newBucket].empty()) {
-               std::cout << "Returning first element in next non-empty bucket: " 
-                        << elems_[newBucket].begin()->first << std::endl;
-               return make_pair(&(*elems_[newBucket].begin()), true);
+
+         for (auto i = bucket; i < elems_.size(); ++i) {
+            if (!elems_[i].empty()) {
+               return make_pair(&elems_[i].front(), true);
             }
          }
-   
-         // If all buckets are empty, return nullptr
-         std::cout << "No more elements in hashmap, returning nullptr" << std::endl;
-         return make_pair(nullptr, true);  // return nullptr if no element found
+
+         return make_pair(nullptr, true);
       }
-   
-      std::cout << "Key " << x << " not found in hashmap" << std::endl;
+
       return make_pair(nullptr, false);  // ensure nullptr is returned if not found
 }
 
@@ -221,8 +204,8 @@ Value& hashmap<Key, Value, Compare, Hash>::operator[](const Key& x) {
    Element* found = find(x);
 
    if (found == nullptr) { // If key not found, insert a new element
-      auto insert_result = insert(std::make_pair(x, Value()));
-      found = insert_result.first;  // insert and get pointer to the new element
+      insert(std::make_pair(x, Value()));
+      found = find(x);  // insert and get pointer to the new element
    }
 
    return found->second;
@@ -232,7 +215,7 @@ Value& hashmap<Key, Value, Compare, Hash>::operator[](const Key& x) {
 template <typename Key, typename Value, typename Compare, typename Hash>
 void hashmap<Key, Value, Compare, Hash>::rehash(size_t n) {
    if(size_ <= hash_.numBuckets()) { 
-      std::cout << "\t" << size_ << " too small! Failed!" << std::endl;
+      std::cout << "\t" << size_ << " too small!" << std::endl;
       return; 
    } 
 
