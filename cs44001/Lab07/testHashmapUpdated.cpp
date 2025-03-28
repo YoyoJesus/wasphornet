@@ -131,6 +131,7 @@ int main() {
    assert(result2.first->second == "Bob");
 
    cout << "string insert passed" << endl;
+   
    // Find elements
    auto y = employees.find(1);
    assert(y != nullptr);
@@ -169,42 +170,60 @@ int main() {
    assert(employees[4] == "Diana");
 
    employees[4] = "Edward";
-   assert(employees[4] == "Edward"); // value should not be updated - hashmaps are immutable
+   assert(employees[4] == "Edward"); // value should be updated - unsafe insert
 
    employees[5];
-   assert(employees[5] == "");
+   assert(employees[5] == ""); // value should be default constructed
 
    // Rehashing test
    // Insert elements to ensure the container needs rehashing
-   for (int i = 6; i <= 20; ++i) {
+   for (int i = 6; i <= 150; ++i) {
        employees[i] = "Employee" + std::to_string(i);
    }
-
-   std::cout << "" << std::endl;
    assert(employees[6] == "Employee6");
    assert(employees[15] == "Employee15");
    assert(employees[20] == "Employee20");
-   std::cout << "passed pre-hashing" << std::endl;
-   // Perform rehashing (resize the bucket size to a larger number, e.g., 50)
-   employees.rehash(50);
+   assert(employees[90] == "Employee90");
+   assert(employees[100] == "Employee100");
+   assert(employees[120] == "Employee120");
+   assert(employees[150] == "Employee150");
+   std::cout << "passed pre-rehashing" << std::endl;
 
-   assert(employees[6] == "Employee6");
+   // rehash the container
+   employees.rehash(200);
+
+   //push more elements to ensure rehashing is working
+    for (int i = 101; i <= 300; ++i) {
+         employees[i] = "Employee" + std::to_string(i);
+    }
+    
+   assert(employees[101] == "Employee101");
+   assert(employees[150] == "Employee150");
+   assert(employees[180] == "Employee180");
+   // check if the previous elements are still there
+   assert(employees[6] == "Employee6"); 
    assert(employees[15] == "Employee15");
    assert(employees[20] == "Employee20");
-
+   assert(employees[90] == "Employee90");
+    
    // Test after rehashing
-   auto z = employees.find(10);
+   auto z = employees.find(150);
    assert(z != nullptr);
-   assert(z->second == "Employee10");
+   assert(z->second == "Employee150");
 
-   result2 = employees.erase(10);
-   assert(result2.second);
-   assert(result2.first->first == 11);
+   z = employees.find(200);
+   assert(z != nullptr);
+   assert(z->second == "Employee200");
 
-   result2 = employees.insert(make_pair(10, "Reinserted"));
-   assert(result2.second);
-   assert(result2.first->first == 10);
-   assert(result2.first->second == "Reinserted");
+   z = employees.find(400);
+   assert(z == nullptr);
+
+   auto it = employees.erase(150);
+   assert(it.second);
+   assert(it.first->first == 151);
+
+   employees.insert(make_pair(150, "150"));
+   assert(employees[150] == "150");
 
    cout << "rehashing passed" << endl;
 

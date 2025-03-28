@@ -1,0 +1,18 @@
+User Alice logged on
+User Bob logged on
+User Charlie logged on
+Malware attack detected - ID: 264
+Malware attack detected - ID: 264
+Malware attack detected - ID: 264
+User Alice logged on
+User Bob logged on
+User Charlie logged on
+Malware attack detected - ID: 780
+Malware attack detected - ID: 780
+Malware attack detected - ID: 780
+User Alice logged on, password: 
+User Bob logged on, password: password123
+User Charlie logged on, password: hackme
+Malware attack detected - ID: 86
+Malware attack detected - ID: 86
+Malware attack detected - ID: 86

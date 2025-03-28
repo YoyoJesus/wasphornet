@@ -12,9 +12,9 @@ Lab 11
 Lab 12	
 Lab 13	
 Quiz 1	9
-Quiz 2	
+Quiz 2	7
+Quiz 3	
+Quiz 4	
 Midterm 1	86
-Midterm 2	
-Final Exam	
-	
-	
+Midterm 2	93
+Final Exam	

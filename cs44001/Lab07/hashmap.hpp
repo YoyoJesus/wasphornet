@@ -81,6 +81,8 @@ public:
    Value& operator[] (const Key& x); // returns reference on value of
                                      // element with key, inserts if does not exist
    void rehash(size_t n); // rehashes the container to have n buckets
+
+   size_t getSize() const { return size_; } // used for testing purposes
 private:
 
    // helper function for various searches
@@ -158,8 +160,10 @@ template <typename Key, typename Value, typename Compare, typename Hash>
    if (it == elems_[bucket].end()) {
       ++size_;
       elems_[bucket].push_back(x);
-      return make_pair(&elems_[bucket].back(), true);
+      return make_pair(&elems_[bucket].back(), true); // return the pointer to the new element & true
+
    } else {
+      // if found, return a pointer to the existing element & false
       return make_pair(&(*it), false);
    }
 }
@@ -171,25 +175,31 @@ template <typename Key, typename Value, typename Compare, typename Hash>
 template <typename Key, typename Value, typename Compare, typename Hash>
    pair<const typename hashmap<Key, Value, Compare, Hash>::Element*, bool> 
    hashmap<Key, Value, Compare, Hash>::erase(const Key& x) {
-
+      // find the element
       size_t bucket = hash_.hash(x);
       auto it = findElement(x, bucket);
    
+      // if found, erase it
       if (it != elems_[bucket].end()) {
          
+         // check if the element is the last in the bucket
          if (std::next(it) == elems_[bucket].end()) {
-            ++bucket;
+            ++bucket; // if last element, move to the next bucket
          }
 
+         // erase the element
          elems_[bucket].erase(it);
          --size_;
 
+         // check if there are any elements left in the bucket
          for (auto i = bucket; i < elems_.size(); ++i) {
+            // if there are elements left in the bucket - return the first one
             if (!elems_[i].empty()) {
                return make_pair(&elems_[i].front(), true);
             }
          }
 
+         // if no elements left in the bucket
          return make_pair(nullptr, true);
       }
 
@@ -203,9 +213,10 @@ template <typename Key, typename Value, typename Compare, typename Hash>
 Value& hashmap<Key, Value, Compare, Hash>::operator[](const Key& x) {
    Element* found = find(x);
 
-   if (found == nullptr) { // If key not found, insert a new element
-      insert(std::make_pair(x, Value()));
-      found = find(x);  // insert and get pointer to the new element
+   // If key not found, insert a new element
+   if (found == nullptr) {
+      insert(std::make_pair(x, Value())); // insert a new element with default value
+      found = find(x);  // get pointer to the new element
    }
 
    return found->second;
@@ -214,26 +225,39 @@ Value& hashmap<Key, Value, Compare, Hash>::operator[](const Key& x) {
 // rehashes the container to have n buckets
 template <typename Key, typename Value, typename Compare, typename Hash>
 void hashmap<Key, Value, Compare, Hash>::rehash(size_t n) {
-   if(size_ <= hash_.numBuckets()) { 
-      std::cout << "\t" << size_ << " too small!" << std::endl;
+   // If the number of buckets is greater than or equal to n, return
+   if (n <= hash_.numBuckets()) { 
+      cout << hash_.numBuckets() << " is less than or equal to " << n << endl;
       return; 
    } 
 
-   hash_ = DefaultHash<Key>(size_);
+   // If the number of buckets is less than n, rehash the container
+   // if statement for confirmation purposes mostly
+   if (n > hash_.numBuckets()) {
+      cout << hash_.numBuckets() << " is less than " << n <<
+      " - rehashing the container" << endl;
+   }
+
+   // Create a new hash object with the specified number of buckets
+   hash_ = DefaultHash<Key>(n);
    std::vector<Element> tmp;
 
-   for(auto& where : elems_) {
-      for(auto& here : where) {
-         tmp.push_back(here);
+   // Copy all elements into a temporary vector
+   for (auto& elms : elems_) {
+      for (auto& buckets : elms) {
+         tmp.push_back(buckets);
       }
    }
 
-   elems_.empty();
-   elems_.resize(size_);
+   // Clear the old vector and resize it to the new size
+   elems_.clear();
+   elems_.resize(n);
 
-	for(auto& it : tmp){
-		size_t b = hash_.hash(it.first);
-      std::cout << b << std::endl;
-		elems_[b].push_back(it);
-	}
+   // Rehash all elements into the new vector
+   // find index of the old bucket - then push the element into the new bucket
+   for (auto& it : tmp) {
+      size_t b = hash_.hash(it.first); 
+      //std::cout << b << std::endl; // Testing line
+      elems_[b].push_back(it);
+   }
 }
