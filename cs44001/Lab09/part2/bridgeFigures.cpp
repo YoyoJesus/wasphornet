@@ -5,26 +5,29 @@
 // 2/12/2014
 
 #include <iostream>
+#include <cstdlib>
 
 using std::cout; using std::endl; using std::cin;
 
 // abstract body 
 class Fill{
 public:
-   Fill(char fillChar): fillChar_(fillChar){}
-   virtual char getBorder()=0;
-   virtual char getInternal()=0;
+   Fill(char fillChar, char borderChar): fillChar_(fillChar), 
+                                    borderChar_(borderChar){}
+   virtual char getBorder() { return borderChar_;};
+   virtual char getInternal() { return fillChar_;};
    virtual ~Fill() {}
 protected:
    char fillChar_;
+   char borderChar_;
 };
 
 // concrete body
 class Hollow: public Fill{
 public:
-   Hollow(char fillChar):Fill(fillChar){}
-   char getBorder() override {return fillChar_;}
-   char getInternal() override {return ' ';}
+   //basically forcing binding of fillChar_ to ' '
+   // even though I am not using std::bind directly
+   Hollow(char borderChar):Fill(' ', borderChar){}
    ~Hollow() override {}
 };
 
@@ -32,10 +35,30 @@ public:
 // another concrete body
 class Filled: public Fill {
 public:
-   Filled(char fillChar):Fill(fillChar){}
-   char getBorder() override {return fillChar_;}
-   char getInternal() override {return fillChar_;}
+   // fillChar_ is the same as borderChar_
+   Filled(char fillChar):Fill(fillChar, fillChar){}
    ~Filled() override {}
+};
+
+//concrete body that uses different fill & border
+class FullyFilled: public Fill {
+public:
+   FullyFilled(char fillChar, char borderChar):Fill(fillChar, borderChar){}
+   ~FullyFilled() override {}
+};
+
+//last concrete body - random fill & border
+class RandomFilled: public Fill {
+public:
+   RandomFilled(char fillChar, char borderChar):Fill(fillChar, borderChar){}
+
+   // returns either fillChar_ or borderChar_ randomly
+   char getBorder() override {return rand() % 2 == 0 ? 
+                                 borderChar_ : fillChar_;}
+   char getInternal() override {return rand() % 2 == 0 ? 
+                                 fillChar_ : borderChar_;}
+
+   ~RandomFilled() override {}
 };
 
 // abstract handle
@@ -69,42 +92,29 @@ void Square::draw(){
 }
 
 int main(){
-
+   srand(time(nullptr));
   
    Fill* hollowPaintJ = new Hollow('&');
    Fill* filledPaintStar = new Filled('@');
 
+   //These are based on the above two - passing & and @ to the constructor
+   Fill* fullyFilled = new FullyFilled(hollowPaintJ->getBorder(), 
+                                       filledPaintStar->getBorder());
+   Fill* randomPaint = new RandomFilled(hollowPaintJ->getBorder(), 
+                                       filledPaintStar->getBorder());
+
    
    Figure *smallBox = new Square(6, hollowPaintJ);
    Figure *bigBox = new Square(15, filledPaintStar);
+   Figure *filedBox = new Square(10, fullyFilled);
+   Figure *randomBox = new Square(9, randomPaint);
    
    smallBox->draw();
    cout << endl;
    bigBox -> draw();
-   
-   
-   /*
-   // ask user for figure parameters
-   cout << "Enter fill character: "; 
-            char fchar; cin >> fchar;
-   cout << "Filled or hollow? [f/h] "; 
-           char ifFilled; cin >> ifFilled;
-   cout << "Enter size: "; int size; cin >> size;
-   */
-   /*
-   Figure *userBox = new Square(size, ifFilled == 'f'? 
-	       static_cast<Fill *>(new Filled(fchar)):
-	       static_cast<Fill *>(new Hollow(fchar))
-	       ); 
-   */
-      
-   /*
-   Figure *userBox = ifFilled == 'f'?
-      new Square(size, new Filled(fchar)):
-      new Square(size, new Hollow(fchar));
-   
-   
-   userBox -> draw();
    cout << endl;
-   */
+   filedBox -> draw();
+   cout << endl;
+   randomBox -> draw();
+   
 }

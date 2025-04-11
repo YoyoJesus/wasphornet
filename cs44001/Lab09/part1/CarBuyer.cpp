@@ -17,8 +17,8 @@ class CarLot{
 public:
    CarLot();
 
-   // not needed in ths new implementation - held for posterity
    Car *testDriveCar(){
+      carIndex_ = 0; // using to reset the index to 0
       return car4sale_[carIndex_];
    }
 
@@ -62,7 +62,6 @@ CarLot::CarLot(){
       car4sale_.push_back(car);
    }
 
-   carIndex_ = 0; // set index to 0 on construction
 }
 
 
@@ -75,7 +74,7 @@ void toyotaLover(int id){
    if (carLotPtr == nullptr)
       carLotPtr = new CarLot();
 
-   //Car *toBuy = carLotPtr -> testDriveCar(); 
+   Car *toBuy = carLotPtr -> testDriveCar(); 
 
    for (int i=0; i < carLotPtr->lotSize(); ++i){
       Car *toBuy = carLotPtr -> nextCar();
@@ -91,7 +90,10 @@ void toyotaLover(int id){
          break;
       }
 
-      cout << "Jill Toyoter " << id << endl;
+      cout << "Jill Toyoter " << id + 1 << endl;
+      // I am doing it this way to ensure that the id starts at 1
+      // I do not like id starting at 0 in the output
+      // 0 is not a good id number based on my experience in DB
       cout << "test driving " 
 	   << toBuy->getMake() << " "
 	   << toBuy->getModel();
@@ -112,7 +114,7 @@ void fordLover(int id){
    if (carLotPtr == nullptr)
       carLotPtr = new CarLot();
 
-   //Car *toBuy = carLotPtr -> testDriveCar();
+   Car *toBuy = carLotPtr -> testDriveCar();
 
    for (int i = 0; i < carLotPtr->lotSize(); ++i) {
       Car *toBuy = carLotPtr -> nextCar();
@@ -128,7 +130,10 @@ void fordLover(int id){
          break;
       }
    
-      cout << "Jack Fordman " << id << endl;
+      cout << "Jack Fordman " << id + 1  << endl;
+      // I am doing it this way to ensure that the id starts at 1
+      // I do not like id starting at 0 in the output
+      // 0 is not a good id number based on my experience in DB
       cout << " test driving "
 	   << toBuy->getMake() << " "
         << toBuy->getModel();
@@ -151,8 +156,8 @@ int main() {
    const int numBuyers=20;
    for(int i=0; i < numBuyers; ++i)
       if(rand()% 2 == 0)
-	 toyotaLover(i);
+	      toyotaLover(i);
       else
-	 fordLover(i);
+	      fordLover(i);
   
 }

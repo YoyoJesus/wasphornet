@@ -23,3 +23,6 @@ shared/
 .npm/
 .esd_auth
 ~/cs44001/.svn
+/IAN/*
+*.svn
+*.o
