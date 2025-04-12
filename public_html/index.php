@@ -84,6 +84,7 @@
                                 <li>Daredevil</li>
                             </ul>
                         </b></p>
+                        <p>A full list of my favorite movies and shows can be found <a href="./movies">here</a>.</p>
                 </div>
             </div>
         </div>
