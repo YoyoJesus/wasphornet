@@ -6,15 +6,14 @@ Lab 5	10
 Lab 6	10
 Lab 7	10
 Lab 8	10
-Lab 9	
-Lab 10	
-Lab 11	
+Lab 9	10
+Lab 10	10
+Lab 11	10
 Lab 12	
 Lab 13	
 Quiz 1	9
 Quiz 2	7
-Quiz 3	
-Quiz 4	
+Quiz 3	8
 Midterm 1	86
 Midterm 2	93
 Final Exam	

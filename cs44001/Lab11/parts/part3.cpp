@@ -11,7 +11,7 @@ int main() {
     int totalOrders = 0;
 
     while (totalOrders < 3 || baristaPointer->hasCustomers()) {
-        if (totalOrders < 3 && (!baristaPointer->hasCustomers() || rand() % 2 == 0)) {
+        if (totalOrders < 3) {
             // Take a new order
             Drink *coffee = nullptr;
             static char choice;
@@ -73,7 +73,7 @@ int main() {
             cout << cust->getName() + ", your " + cust->getDrink()->getName() + " is ready! ";
             baristaPointer->handleOrder(cust->getDrink());
             cout << " It will be $" << cust->getDrink()->getPrice() << " please." << endl;
-            baristaPointer->notify(cust, cust->getDrink()); // Notify the specific customer
+            baristaPointer->notify(cust->getDrink()); // Notify the specific customer
             baristaPointer->detach(cust); // Detach the customer after notifying
 
             delete cust; // Clean up the customer object

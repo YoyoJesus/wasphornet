@@ -1,0 +1,36 @@
+Welcome to Coffee Shack, can I get you [l]arge, [m]edium, or [s]mall coffee? 
+Would you like to add [s]ugar, [h]oney, [c]ream, or [d]one? 
+Would you like to add [s]ugar, [h]oney, [c]ream, or [d]one? 
+Would you like to add [s]ugar, [h]oney, [c]ream, or [d]one? 
+Would you like to add [s]ugar, [h]oney, [c]ream, or [d]one? 
+Can I get your name? 
+Please wait Hon.
+
+Welcome to Coffee Shack, can I get you [l]arge, [m]edium, or [s]mall coffee? 
+Would you like to add [s]ugar, [h]oney, [c]ream, or [d]one? 
+Would you like to add [s]ugar, [h]oney, [c]ream, or [d]one? 
+Can I get your name? 
+Please wait Jim.
+
+Welcome to Coffee Shack, can I get you [l]arge, [m]edium, or [s]mall coffee? 
+Would you like to add [s]ugar, [h]oney, [c]ream, or [d]one? 
+Can I get your name? 
+Please wait Alex.
+
+Alex, your large coffee with is ready! It was prepared by a JuniorBarista.NOT my coffee! Hon
+NOT my coffee! Jim
+This is Alex, I got my coffee!
+ It will be $10 please.
+NOT my coffee! Hon
+NOT my coffee! Jim
+This is Alex, I got my coffee!
+
+Jim, your medium coffee with cream, is ready! It was prepared by a SeniorBarista. It will be $9 please.
+NOT my coffee! Hon
+This is Jim, I got my coffee!
+
+Hon, your small coffee with honey, cream, sugar, is ready! It was prepared by a Manager. It will be $11 please.
+This is Hon, I got my coffee!
+
+
+All orders have been completed. Thank you for visiting Coffee Shack!

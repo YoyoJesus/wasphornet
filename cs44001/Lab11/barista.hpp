@@ -18,9 +18,14 @@ using std::string;
 class Customer {
 public:
     Customer(string name, Drink *drink = nullptr): name_(name), drink_(drink) {}
+    // when the customer is notified - check if the drink is the correct one
     void update(Drink *drink) {
-        cout << "This is " << name_ << ", I got my coffee, thank you!" << endl;
+        if (drink->getName() == drink_->getName()) 
+            cout << "This is " + name_ + ", I got my coffee!" << endl;
+        else
+            cout << "NOT my coffee! " + name_ << endl;
     }
+
     string getName() const { return name_; } // Getter for name
     Drink* getDrink() const { return drink_; } // Getter for drink
 
@@ -53,10 +58,10 @@ public:
     void detach(Customer *customer) {
         customers_.remove(customer);
     }
-    // Notify the specific customer when their order is ready
-    void notify(Customer *customer, Drink *drink) {
-        if (customer != nullptr) {
-            customer->update(drink);
+    // All Customers when a drink is ready
+    virtual void notify(Drink *order) {
+        for (auto customer : customers_) {
+            customer->update(order);
         }
     }
     // Check if there are any customers
@@ -66,7 +71,10 @@ public:
     // Get the next customer in line
     Customer* getNextCustomer() {
         if (!customers_.empty()) {
-            return customers_.front();
+            // return a random customer from the list
+            auto it = customers_.begin();
+            std::advance(it, rand() % customers_.size());
+            return *it;
         }
         return nullptr;
     }
@@ -93,6 +101,8 @@ public:
             order->getName().find("cream") == string::npos) 
         {
             cout << "It was prepared by a JuniorBarista.";
+            // Notify all customers
+            notify(order);
         } else {
             Barista::handleOrder(order);
         }
@@ -108,6 +118,7 @@ public:
         // SeniorBarista can handle all added ingredients except for honey
         if (order->getName().find("honey") == string::npos) {
             cout << "It was prepared by a SeniorBarista.";
+            notify(order);
         } else {
             Barista::handleOrder(order);
         }
@@ -122,7 +133,7 @@ public:
     // Manager can handle any order
     void handleOrder(Drink *order) override {
         cout << "It was prepared by a Manager.";
-        notify(nullptr, order); // Notify the attached customer when the order is ready
+        notify(order);
     }
 
     ~Manager() {}

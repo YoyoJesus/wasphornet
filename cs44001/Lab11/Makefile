@@ -15,7 +15,7 @@ part2:
 
 part3:
 	g++ -o $(PART3_EXEC) ./parts/part3.cpp
-	./$(PART3_EXEC) < ./inputs/input3.txt > output.txt
+	./$(PART3_EXEC) < ./inputs/input3.txt > output3.txt
 
 
 clean:
@@ -25,8 +25,11 @@ clean:
 #versions without inputs - not happening for part3
 part1_user_input:
 	g++ -o $(PART1_EXEC) ./parts/part1.cpp
-	./$(PART1_EXEC) > output.txt
+	./$(PART1_EXEC)
 	
 part2_user_input:
 	g++ -o $(PART2_EXEC) ./parts/part2.cpp
-	./$(PART2_EXEC) > output.txt
+	./$(PART2_EXEC)
+part3_user_input:
+	g++ -o $(PART3_EXEC) ./parts/part3.cpp
+	./$(PART3_EXEC)
