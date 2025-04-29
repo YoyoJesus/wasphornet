@@ -23,6 +23,7 @@ shared/
 .npm/
 .esd_auth
 ~/cs44001/.svn
+~/cs44001/.svn/wc.db
 /IAN/*
 *.svn
 *.o
