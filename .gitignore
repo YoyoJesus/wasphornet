@@ -27,3 +27,6 @@ shared/
 /IAN/*
 *.svn
 *.o
+.bashrc
+.esd_auth
+.npm
