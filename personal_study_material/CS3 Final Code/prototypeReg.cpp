@@ -20,7 +20,6 @@ class Shape {
     
         virtual Shape* clone() const = 0;
         virtual void draw() const = 0;
-        virtual ~Shape() {}
     protected:
         int size_;
 };

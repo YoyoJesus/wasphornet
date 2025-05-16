@@ -41,7 +41,7 @@ public:
     void leave(Colleague* colleague) override {
         auto it = std::remove(colleagues_.begin(), colleagues_.end(), colleague);
         if (it != colleagues_.end()) {
-            colleagues_.erase(it, colleagues_.end());
+            colleagues_.erase(it);
         }
     }
 
@@ -69,9 +69,7 @@ public:
         mediator_->broadcast(this);
     }
 
-    void receive() override {
-        cout << name_ << " received a message.\n";
-    }
+    void receive() override { cout << name_ << " received a message.\n"; }
 
 private:
     string name_;
@@ -87,9 +85,7 @@ public:
         mediator_->broadcast(this);
     }
 
-    void receive() override {
-        cout << name_ << " received a message.\n";
-    }
+    void receive() override { cout << name_ << " received a message.\n"; }
 
 private:
     string name_;

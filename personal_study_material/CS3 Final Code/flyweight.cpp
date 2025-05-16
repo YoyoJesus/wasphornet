@@ -72,14 +72,9 @@ map<rank, Rank*> Academy::ranks_;
 class Military {
 public:
     Military(string name, rank r) : name_(name), rank_(Academy::getRank(r)) {}
-    
-    void show() {
-        cout << "Name: " << name_ << ", Rank: " << rank_->getRank() << endl;
-    }
-    void setRank(rank r) {
-        rank_ = Academy::getRank(r);
-    }
-
+    void show() {cout << "Name: " << name_ 
+        << ", Rank: " << rank_->getRank() << endl;}
+    void setRank(rank r) {rank_ = Academy::getRank(r);}
 private:
     string name_;
     Rank* rank_;

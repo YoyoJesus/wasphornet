@@ -16,7 +16,6 @@ using std::vector;
 class Car {
 public:
     Car(string model) : model_(model) {}
-    virtual ~Car() {}
     virtual void drive() = 0;
 protected:
     string model_;
@@ -39,11 +38,20 @@ public:
     }
 };
 
+class F1 : public Car {
+public:
+    F1(string model, string driver) : Car(model), driverName_(driver) {}
+    void drive() override {
+        cout << "This is a F1 " << model_ << " driven by " << driverName_ << endl;
+    }
+private:
+    string driverName_;
+};
+
 // abstract factory
 class CarFactory {
 public:
     CarFactory(string factoryName) : factoryName_(factoryName) {}
-    virtual ~CarFactory() {}
     virtual Car* createCar() = 0;
 private:
     string factoryName_;
@@ -72,12 +80,26 @@ private:
     vector<string> models_ = {"Camero", "Chevelle", "Impala", "Malibu", "Silverado", "Equinox"};
 };
 
+class F1Factory : public CarFactory {
+public:
+    F1Factory(string factoryName) : CarFactory(factoryName) {}
+    Car* createCar() override {
+        int index = rand() % models_.size();
+        int driverIndex = rand() % drivers_.size();
+        return new F1(models_[index], drivers_[driverIndex]);
+    }
+private:
+    vector<string> models_ = {"Ferrari", "Mercedes", "Red Bull", "McLaren", "Alpine", "Alpha Tauri"};
+    vector<string> drivers_ = {"Hamilton", "Verstappen", "Leclerc", "Sainz", "Norris", "Alonso"};
+};
+
 //client
 int main() {
     srand(time(nullptr));
 
     CarFactory* RougeFatory = new FordFactory("Rouge Plant");
     CarFactory* DetroitFactory = new ChevyFactory("Detroit Plant");
+    CarFactory* F1 = new F1Factory("F1 Factory");
 
     vector<Car*> cars;
     cout << "Welcome to the Car Factory!" << endl;
@@ -88,8 +110,10 @@ int main() {
     for (int i = 0; i < numCars; ++i) {
         if (i % 2 == 0) 
             cars.push_back(RougeFatory->createCar());
-        else 
+        else if (i % 3 == 0) 
             cars.push_back(DetroitFactory->createCar());
+        else 
+            cars.push_back(F1->createCar());
     }
 
     for (auto car : cars) {

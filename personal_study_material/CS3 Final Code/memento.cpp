@@ -31,7 +31,7 @@ public:
     void remove(int x) {
         auto it = std::remove(data_.begin(), data_.end(), x);
         if (it != data_.end()) {
-            data_.erase(it, data_.end());
+            data_.erase(it);
             cout << "Removed " << x << endl;
         } else {
             cout << x << " not found" << endl;

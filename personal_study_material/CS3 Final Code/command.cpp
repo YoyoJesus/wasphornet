@@ -9,12 +9,8 @@ using std::cin;
 // receiver
 class light {
 public:
-    void turn_on() {
-        cout << "Light is ON" << endl;
-    }
-    void turn_off() {
-        cout << "Light is OFF" << endl;
-    }
+    void turn_on() { cout << "Light is ON" << endl; }
+    void turn_off() { cout << "Light is OFF" << endl;}
 };
 
 // command interface
