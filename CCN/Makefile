@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++17
+CXXFLAGS = -std=c++17
 PTHREAD_LIB = -pthread
 
 .PHONY: all server client clean

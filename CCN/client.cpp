@@ -12,15 +12,31 @@
 #include <cstdlib>
 #include <poll.h>
 
-const int DEFAULT_PORT = 8080;
-const int DEFAULT_TIMEOUT_MINUTES = 2;
+using std::string; using std::cout; using std::endl;
+using std::thread; using std::mutex; using std::lock_guard;
+
+const int PORT = 8080;
+const int TIMEOUT_MINUTES = 2;
+
+// tag formatting: match server tag width for uniform output (7 chars inside brackets)
+static const int TAG_WIDTH = 7;
+static std::string pad_tag(const std::string &t) {
+    int inner_width = TAG_WIDTH;
+    int max_tag_len = inner_width - 2; // reserve one space on each side inside brackets
+    std::string tx = t;
+    if ((int)tx.size() > max_tag_len) tx = tx.substr(0, max_tag_len);
+    int total_pad = max_tag_len - (int)tx.size();
+    int left_pad = total_pad / 2;
+    int right_pad = total_pad - left_pad;
+    return std::string("[") + std::string(" ") + std::string(left_pad, ' ') + tx + std::string(right_pad, ' ') + std::string(" ") + std::string("] ");
+}
 
 std::atomic<bool> running(true);
-std::mutex last_activity_mutex;
+mutex last_activity_mutex;
 std::chrono::steady_clock::time_point last_activity;
 
 void update_activity() {
-    std::lock_guard<std::mutex> lock(last_activity_mutex);
+    lock_guard<mutex> lock(last_activity_mutex);
     last_activity = std::chrono::steady_clock::now();
 }
 
@@ -30,8 +46,18 @@ void recv_thread_fn(int sock) {
         ssize_t len = recv(sock, buffer, sizeof(buffer)-1, 0);
         if (len <= 0) break;
         buffer[len] = '\0';
-        std::cout << buffer;
-        std::cout << std::flush;
+        std::string s(buffer);
+        cout << s;
+        // if server announces shutdown or authorizes shutdown, exit promptly
+        if (s.find("Shutdown authorized") != std::string::npos || s.find("Server is shutting down") != std::string::npos) {
+            // give user the server message, then exit
+            cout << std::flush;
+            running = false;
+            shutdown(sock, SHUT_RDWR);
+            close(sock);
+            break;
+        }
+        cout << std::flush;
         update_activity();
     }
     running = false;
@@ -39,14 +65,14 @@ void recv_thread_fn(int sock) {
 
 void timeout_monitor(int sock, std::chrono::minutes timeout) {
     while (running) {
-        std::this_thread::sleep_for(std::chrono::seconds(10));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         std::chrono::steady_clock::time_point now;
         {
-            std::lock_guard<std::mutex> lock(last_activity_mutex);
+            lock_guard<mutex> lock(last_activity_mutex);
             now = std::chrono::steady_clock::now();
             auto diff = std::chrono::duration_cast<std::chrono::minutes>(now - last_activity);
             if (diff >= timeout) {
-                std::cout << "[client] Inactivity timeout, closing connection\n";
+                cout << pad_tag("CLIENT") << "Inactivity timeout, closing connection\n";
                 running = false;
                 shutdown(sock, SHUT_RDWR);
                 close(sock);
@@ -56,13 +82,8 @@ void timeout_monitor(int sock, std::chrono::minutes timeout) {
     }
 }
 
-int main(int argc, char **argv) {
+int main() {
     const char *server_ip = "127.0.0.1";
-    int port = DEFAULT_PORT;
-    int timeout_minutes = DEFAULT_TIMEOUT_MINUTES;
-    if (argc >= 2) server_ip = argv[1];
-    if (argc >= 3) port = std::stoi(argv[2]);
-    if (argc >= 4) timeout_minutes = std::stoi(argv[3]);
 
     int sock = 0;
     struct sockaddr_in serv_addr;
@@ -73,22 +94,17 @@ int main(int argc, char **argv) {
     }
 
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(port);
-
-    if (inet_pton(AF_INET, server_ip, &serv_addr.sin_addr) <= 0) {
-        perror("Invalid address/ Address not supported");
-        return 1;
-    }
+    serv_addr.sin_port = htons(PORT);
 
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         perror("Connection Failed");
         return 1;
     }
-    std::cout << "Connected to server at " << server_ip << ":" << port << std::endl;
+    cout << "Connected to server at " << server_ip << ":" << PORT << endl;
 
     // ask username
-    std::string username;
-    std::cout << "Enter username: ";
+    string username;
+    cout << "Enter username: ";
     std::getline(std::cin, username);
     if (username.empty()) username = "guest";
     // send username as first message
@@ -100,18 +116,18 @@ int main(int argc, char **argv) {
     while (true) {
         ssize_t len = recv(sock, buffer, sizeof(buffer)-1, 0);
         if (len <= 0) {
-            std::cout << "Connection closed by server while choosing username\n";
+            cout << "Connection closed by server while choosing username\n";
             close(sock);
             return 1;
         }
         buffer[len] = '\0';
-        std::string resp(buffer);
-        std::cout << resp; // show server message
+        string resp(buffer);
+        cout << resp; // show server message
         // server indicates username taken with this token
-        if (resp.find("USERNAME_TAKEN") != std::string::npos || resp.find("username already in use") 
-          != std::string::npos) {
+        if (resp.find("USERNAME_TAKEN") != string::npos || resp.find("username already in use") 
+          != string::npos) {
             // prompt for a new username and resend
-            std::cout << "Choose a different username: ";
+            cout << "Choose a different username: ";
             std::getline(std::cin, username);
             if (username.empty()) username = "guest";
             send(sock, username.c_str(), username.size(), 0);
@@ -123,16 +139,16 @@ int main(int argc, char **argv) {
     }
 
     // start receiver thread
-    std::thread recv_thread(recv_thread_fn, sock);
+    thread recv_thread(recv_thread_fn, sock);
 
     // start timeout monitor
-    std::thread monitor_thread(timeout_monitor, sock, std::chrono::minutes(timeout_minutes));
+    thread monitor_thread(timeout_monitor, sock, std::chrono::minutes(TIMEOUT_MINUTES));
 
     // main loop: poll stdin so we can exit promptly when disconnected
     struct pollfd pfd;
     pfd.fd = STDIN_FILENO;
     pfd.events = POLLIN;
-    std::string line;
+    string line;
     while (running) {
         int pret = poll(&pfd, 1, 500); // 500 ms
         if (!running) break;
@@ -173,6 +189,6 @@ int main(int argc, char **argv) {
     if (recv_thread.joinable()) recv_thread.join();
     if (monitor_thread.joinable()) monitor_thread.join();
 
-    std::cout << "Client exited." << std::endl;
+    cout << "Client exited." << endl;
     return 0;
 }
