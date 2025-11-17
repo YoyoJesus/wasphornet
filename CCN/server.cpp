@@ -25,18 +25,20 @@ void server_log(const string &msg) {
     cout << msg << endl;
 }
 
-    static const int TAG_WIDTH = 7;
-    static std::string pad_tag(const std::string &t) {
-        int inner_width = TAG_WIDTH;
-        int max_tag_len = inner_width - 2; // reserve one space on each side inside brackets
-        std::string tx = t;
-        if ((int)tx.size() > max_tag_len) tx = tx.substr(0, max_tag_len);
-        int total_pad = max_tag_len - (int)tx.size();
-        int left_pad = total_pad / 2;
-        int right_pad = total_pad - left_pad;
-        return std::string("[") + std::string(" ") + std::string(left_pad, ' ') + tx + std::string(right_pad, ' ') + std::string(" ") + std::string("] ");
+static const int TAG_WIDTH = 6;
+static string pad_tag(const string &t) {
+    const string tx = t;
+    const int width = TAG_WIDTH;
+    if ((int)tx.size() >= width) {
+        return string("[") + tx + string("] ");
     }
+    int total_pad = width - (int)tx.size();
+    int left_pad = total_pad / 2;
+    int right_pad = total_pad - left_pad;
+    return string("[") + string(left_pad, ' ') + tx + string(right_pad, ' ') + string("] ");
+}
 
+// default port number is 8080 for simplicity
 const int PORT = 8080;
 // default inactivity timeout in minutes
 const int TIMEOUT_MINUTES = 2;
@@ -47,13 +49,13 @@ mutex clients_mutex;
 std::atomic<bool> running(true);
 int server_fd = -1;
 
-// forward declarations
+// forward declarations needed for initiate_shutdown
 void broadcast(const string &msg, int except_sock);
 
 // centralized shutdown routine so both operator and authorized clients use the same code path
-void initiate_shutdown(const std::string &initiator) {
+void initiate_shutdown(const string &initiator) {
     // announce
-    std::string notice = pad_tag("SERVER") + "Server is shutting down\n";
+    string notice = pad_tag("SERVER") + "Server is shutting down\n";
     if (initiator != "operator") {
         notice += "initiated by " + initiator + " with elevated permissions\n";
     } else {
@@ -174,9 +176,11 @@ void handle_client(int client_sock) {
     string join_msg = pad_tag("SERVER") + username + " joined\n";
     broadcast(join_msg, client_sock);
     safe_send(client_sock, pad_tag("SERVER") + "Welcome, " + username + "\n" + "Available commands:\n" 
-        + " - /list : list connected users\n - /quit : disconnect\n - @username message :\n" 
-        + "- /shutdown <password> : shut down server (authorized users only)\n"
-        + "send direct message to username\n  Type your message and hit Enter to broadcast to all users.\n\n");
+        + " - /list : list connected users\n"
+        + " - /quit : disconnect\n"
+        + " - @username message : send direct message to username or usernames (comma-separated)\n" 
+        + " - /shutdown <password> : shut down server (authorized users only)\n"
+        + "Type your message and hit Enter to broadcast to all users.\n\n");
     //cout << pad_tag("SERVER") << "ALERT: " << username << " joined (socket " << client_sock << ")" << endl;
     // log join event
     server_log(pad_tag("JOIN") + username + " (sock " + std::to_string(client_sock) + ")");
@@ -204,10 +208,10 @@ void handle_client(int client_sock) {
         // allow privileged shutdown from client: format "/shutdown <password>"
         if (msg.rfind("/shutdown", 0) == 0) {
             // parse password (if provided)
-            std::string pw;
+            string pw;
             size_t sp = msg.find(' ');
-            if (sp != std::string::npos) pw = msg.substr(sp+1);
-            if (pw == "admin123") {
+            if (sp != string::npos) pw = msg.substr(sp+1);
+            if (pw == "admin123") { // hardcoded password for simplicity, I know this is insecure
                 // authorized: ack and use centralized shutdown routine
                 safe_send(client_sock, pad_tag("SERVER") + "Shutdown authorized\n");
                 initiate_shutdown(username);
@@ -304,7 +308,7 @@ void handle_client(int client_sock) {
             if (!delivered.empty()) {
                 std::ostringstream ack;
                 // construct a compact dm->recipient list and then pad the whole tag
-                std::string delivered_list;
+                string delivered_list;
                 for (size_t i = 0; i < delivered.size(); ++i) {
                     if (i) delivered_list += ",";
                     delivered_list += delivered[i];
@@ -348,14 +352,29 @@ void server_input_thread(int server_sock) {
         if (line == "/shutdown") {
             // centralized shutdown (operator invoked)
             initiate_shutdown("operator");
-            // initiate_shutdown will terminate the process (via _exit), but
-            // include a safe break in case the behavior changes later.
             break;
         }
         if (line == "/list") {
             lock_guard<mutex> lock(clients_mutex);
             cout << "Connected users:\n";
             for (auto &p : clients) cout << " - " << p.second << "\n";
+            continue;
+        }
+        if (line == "/dump_activity") {
+            lock_guard<mutex> lock(clients_mutex);
+            auto now = std::chrono::steady_clock::now();
+            cout << "Tracked activity for " << last_activity.size() << " entries:\n";
+            for (auto &p : last_activity) {
+                int sock = p.first;
+                auto age = std::chrono::duration_cast<std::chrono::seconds>(now - p.second).count();
+                string name = "";
+                if (clients.count(sock)) name = clients[sock];
+                if (!name.empty()) {
+                    cout << " - " << name << " (sock " << sock << ") : " << age << "s since last activity\n";
+                } else {
+                    cout << " - socket " << sock << " : " << age << "s since last activity\n";
+                }
+            }
             continue;
         }
         // close a user's connection: /close username
@@ -407,8 +426,8 @@ void timeout_monitor(std::chrono::minutes timeout) {
         {
             lock_guard<mutex> lock(clients_mutex);
             for (auto &p : last_activity) {
-                auto diff = std::chrono::duration_cast<std::chrono::minutes>(now - p.second);
-                if (diff >= timeout) {
+                // compare durations directly to avoid truncation to whole minutes
+                if ((now - p.second) >= timeout) {
                     to_close.push_back(p.first);
                 }
             }
@@ -464,6 +483,7 @@ int main() {
                 << " - /shutdown : shut down server\n"
                 << " - /close username : disconnect user\n"
                 << " - @username message : send direct message to username\n"
+                << " - /dump_activity : show last activity timestamps for all users\n"
                 << "Simply type and hit Enter to broadcast a message to all users.\n \n";
 
     // thread: server stdin handler

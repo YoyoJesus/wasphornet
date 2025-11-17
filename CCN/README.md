@@ -5,7 +5,7 @@
 - Multiple simultaneous clients (each client sends a username when connecting).
 - Broadcast messages and direct/multicast messages using `@username` tokens or comma-separated lists.
 - Server operator can run commands on the server terminal (see below).
-- Inactivity timeout (server disconnects clients after 2 minutes of inactivity).
+- Inactivity timeout (server disconnects clients after 2 minutes of inactivity). The server enforces inactivity timeouts centrally; clients do not perform local inactivity disconnects.
 - Server logs joins, disconnects, received messages, DMs, multicasts, and per-recipient sends to stdout.
 
 ## Building
@@ -27,10 +27,11 @@ make clean  # remove binaries
 ### Server interactive commands (type into server terminal)
 
 - Type a message and press Enter to send a broadcast to all users.
-- `/list` — print connected users
-- `/close <username>` — forcibly disconnect a user
-- `@username <message>` — send a private message to a user from the server
-- `/quit` — shut down the server and disconnect all clients (closes listening socket)
+ - `/list` — print connected users
+ - `/dump_activity` — print tracked activity entries (username or socket and seconds since last activity)
+ - `/close <username>` — forcibly disconnect a user
+ - `@username <message>` — send a private message to a user from the server
+ - `/shutdown` — shut down the server and disconnect all clients (terminates the server process)
 
 ### Message routing on the server
 
@@ -68,14 +69,9 @@ Usernames must be unique among connected clients. If a username is already taken
   - `@alice,bob Hello` — same as above
 - `/list` — request the server to return the list of connected users
 - `/quit` — disconnect from the server and exit the client
+- `/shutdown <password>` — request the server shut down; requires the server password (default is `admin123` in this build). If authorized, the server will terminate.
 
 ### Examples
-
-Start server:
-
-```bash
-./server
-```
 
 Start a client and connect locally:
 
@@ -94,4 +90,14 @@ Send a multicast message on the client side:
 OR
 
 @bob @jim Hello!
+```
+
+Shutdown server from client side:
+
+```bash
+/shutdown admin123
+
+[SERVER] Shutdown authorized
+[SERVER] Server is shutting down
+initiated by guest559 with elevated permissions
 ```
