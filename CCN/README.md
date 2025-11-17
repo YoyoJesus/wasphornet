@@ -52,6 +52,7 @@ Usernames must be unique among connected clients. If a username is already taken
   - `[DM]` and `[MCAST]` entries when direct/multicast messages are delivered
   - `[BCAST]` when a broadcast is initiated
   - `[SENT] to username (sock M) : message` for each recipient that receives data
+  - `[TIMEOUT]` when a client times out due to inactivity
 
 ## Client usage
 
